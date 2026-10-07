@@ -1,5 +1,5 @@
 export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://www.akansohhealthservices.com'
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://akansohealth.com'
 ).replace(/\/$/, '')
 
 export const site = {

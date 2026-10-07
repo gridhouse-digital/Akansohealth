@@ -8,14 +8,14 @@ The live site is `akansohhealthservices.com`, but its published emails use a dif
 
 Current build:
 
-- All canonical URLs, sitemap, robots, OpenGraph and JSON-LD use `NEXT_PUBLIC_SITE_URL` (default `https://www.akansohhealthservices.com`).
+- All canonical URLs, sitemap, robots, OpenGraph and JSON-LD use `NEXT_PUBLIC_SITE_URL` (default `https://akansohealth.com`; the owner has said the site will move to `akansohealth.com`).
 - The only public email shown is `info@akansohealth.com` (`lib/site.ts → site.email`), per the owner's instruction. Confirm the mailbox exists and the domain's MX records are set up.
 - `akansoh937@gmail.com` has been **removed from every rendered page and from structured data**.
 - Contact-form delivery is configured only through env vars (`CONTACT_FORM_ENDPOINT`, `CONTACT_FORM_TOKEN`); no recipient address is in code. The old FormSubmit form sent to `divinetechpro7@gmail.com` (likely the previous developer) — do not reuse it.
 
 Please confirm:
 
-1. [ ] Which domain(s) Akansoh owns and wants as the canonical site: `akansohhealthservices.com` (www or apex?) and/or `akansohservices.com`.
+1. [ ] Canonical form of the new domain: apex `akansohealth.com` (current default) or `www.akansohealth.com`. Pick one and 301 the other. Also decide whether the old `akansohhealthservices.com` should 301 to the new domain so existing search rankings carry over.
 2. [ ] The correct primary public email address — does `info@akansohealth.com` exist and is it monitored?
 3. [ ] Whether `akansoh937@gmail.com` should receive anything (form submissions, copies) or stay fully private.
 4. [ ] Which inbox should receive contact-form submissions.
