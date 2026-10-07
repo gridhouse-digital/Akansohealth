@@ -60,7 +60,7 @@ Fluid scale (`@theme`): `text-display`, `text-h1`, `text-h2`, `text-h3`, `text-h
 - Shadows: `shadow-sm/md/lg`, low-opacity green-tinted, used sparingly on floating elements.
 - Motion: `Reveal` (fade + 16–24px rise, 600ms, `ease-expo`, once). Buttons: 300ms color, arrow nudges 4px. Global `MotionConfig reducedMotion="user"`; smooth scroll only when motion is allowed.
 - Layout utilities: `container-page` (max 82rem; 1.25 / 2 / 3rem gutters), `section-y` (fluid vertical padding), `arch`.
-- Breakpoints: Tailwind defaults + `xs` (430px).
+- Breakpoints: Tailwind defaults + `xs` (430px), with `lg` lowered to 56rem (896px) so the desktop header and layouts apply in snapped/zoomed/OS-scaled desktop windows.
 
 ## 4. Components (`components/`)
 

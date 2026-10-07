@@ -93,6 +93,7 @@
   --text-display--letter-spacing: -0.03em;
 
   --breakpoint-xs: 26.875rem;
+  --breakpoint-lg: 56rem;
 }
 
 @layer base {

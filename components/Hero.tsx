@@ -16,7 +16,10 @@ export function Hero() {
             <span aria-hidden className="size-1 rounded-full bg-gold" />
             <span>Community Focused</span>
           </p>
-          <h1 id="hero-heading" className="mt-7 text-display text-ink">
+          <h1
+            id="hero-heading"
+            className="mt-7 text-display text-ink lg:text-[length:min(6rem,6.4vw)]"
+          >
             Compassionate support.{' '}
             <em className="block font-[380] text-brand italic">
               Meaningful independence.
