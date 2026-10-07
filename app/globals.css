@@ -1,0 +1,169 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #fbf7f1;
+  --background-alt: #f3ebdf;
+  --surface: #ffffff;
+  --surface-muted: #f7f1e8;
+  --surface-deep: #0f2e25;
+  --text-primary: #142a22;
+  --text-secondary: #4a5a51;
+  --text-on-deep: #f4efe6;
+  --text-on-deep-muted: #b9c7bf;
+  --border: #e5dccd;
+  --border-strong: #d3c6b1;
+  --brand-primary: #1b4b3b;
+  --brand-primary-hover: #143a2d;
+  --brand-secondary: #c5964e;
+  --brand-secondary-ink: #87601f;
+  --brand-accent: #86a64e;
+  --success: #2f6f47;
+  --info: #2c5d78;
+  --danger: #b42318;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+
+  --shadow-sm: 0 1px 2px rgb(20 42 34 / 0.05), 0 1px 1px rgb(20 42 34 / 0.03);
+  --shadow-md: 0 10px 30px -12px rgb(20 42 34 / 0.18);
+  --shadow-lg: 0 30px 60px -24px rgb(20 42 34 / 0.28);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --header-h: 4.5rem;
+}
+
+@theme inline {
+  --color-bg: var(--background);
+  --color-bg-alt: var(--background-alt);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-deep: var(--surface-deep);
+  --color-ink: var(--text-primary);
+  --color-ink-soft: var(--text-secondary);
+  --color-on-deep: var(--text-on-deep);
+  --color-on-deep-muted: var(--text-on-deep-muted);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-brand: var(--brand-primary);
+  --color-brand-hover: var(--brand-primary-hover);
+  --color-gold: var(--brand-secondary);
+  --color-gold-ink: var(--brand-secondary-ink);
+  --color-leaf: var(--brand-accent);
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-danger: var(--danger);
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-newsreader), Georgia, serif;
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --ease-expo: var(--ease-out-expo);
+}
+
+@theme {
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.16em;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.7;
+  --text-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  --text-lead--line-height: 1.65;
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.35;
+  --text-h3: clamp(1.5rem, 1.3rem + 0.7vw, 1.875rem);
+  --text-h3--line-height: 1.2;
+  --text-h2: clamp(2.125rem, 1.6rem + 2.1vw, 3.5rem);
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h1: clamp(2.5rem, 1.7rem + 3.4vw, 4.75rem);
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.025em;
+  --text-display: clamp(2.75rem, 1.6rem + 4.8vw, 6rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.03em;
+
+  --breakpoint-xs: 26.875rem;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.7;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 450;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--brand-secondary) 35%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .on-deep :focus-visible {
+    outline-color: var(--brand-secondary);
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 80rem) {
+    padding-inline: 3rem;
+  }
+}
+
+@utility section-y {
+  padding-block: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+}
+
+@utility arch {
+  border-radius: 50% 50% var(--radius-lg) var(--radius-lg) / 38% 38% var(--radius-lg)
+    var(--radius-lg);
+}
