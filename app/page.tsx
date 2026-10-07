@@ -12,7 +12,6 @@ import { CTASection } from '@/components/CTASection'
 import { Eyebrow } from '@/components/Eyebrow'
 import { FeatureSplit } from '@/components/FeatureSplit'
 import { Hero } from '@/components/Hero'
-import { ImagePlaceholder } from '@/components/ImagePlaceholder'
 import { Reveal } from '@/components/Reveal'
 import { SectionIntro } from '@/components/SectionIntro'
 import { ServiceGrid } from '@/components/ServiceGrid'
@@ -166,8 +165,8 @@ export default function HomePage() {
               </>
             }
             image={{
-              src: '/images/conversation-table.jpg',
-              alt: 'Two women talking together at a small table by a bright window',
+              src: '/images/home-respect.jpg',
+              alt: 'A support professional listening as a man explains the weekly schedule he drew at the kitchen table',
             }}
           >
             <p className="text-lead">
@@ -230,11 +229,15 @@ export default function HomePage() {
         <div className="container-page">
           <div className="relative">
             <Reveal y={24}>
-              <ImagePlaceholder
-                icon={UsersRound}
-                label="Community participation photo placeholder"
-                className="aspect-[4/3] rounded-xl sm:aspect-[16/9] lg:aspect-[21/9]"
-              />
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-bg-alt sm:aspect-[16/9] lg:aspect-[21/9]">
+                <Image
+                  src="/images/home-belonging.jpg"
+                  alt="Adults and neighbours planting seedlings together at a community garden with a support professional"
+                  fill
+                  sizes="(min-width: 82rem) 76rem, 100vw"
+                  className="object-cover object-[50%_30%]"
+                />
+              </div>
             </Reveal>
             <Reveal
               delay={0.1}
@@ -301,18 +304,10 @@ export default function HomePage() {
                 <em className="text-brand">working together.</em>
               </>
             }
-            media={
-              <div className="relative mx-auto flex aspect-[4/5] max-w-md flex-col items-center justify-center gap-8 overflow-hidden arch border border-line bg-bg-alt px-10 lg:max-w-none">
-                <Image
-                  src="/brand/akansoh-logo-600.png"
-                  alt="Akansoh Health Services logo — People, Purpose, Possibility"
-                  width={600}
-                  height={590}
-                  sizes="(min-width: 1024px) 22rem, 60vw"
-                  className="h-auto w-[62%]"
-                />
-              </div>
-            }
+            image={{
+              src: '/images/home-care-team.jpg',
+              alt: 'A nurse and a support professional reviewing a medication organiser with an older woman in her living room',
+            }}
           >
             <p className="text-lead">
               Akansoh Health Services supports individuals with intellectual and

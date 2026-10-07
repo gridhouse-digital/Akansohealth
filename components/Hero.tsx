@@ -64,21 +64,21 @@ export function Hero() {
           <div className="relative mx-auto max-w-xl lg:max-w-none">
             <div className="relative ml-auto aspect-[4/5] w-[82%] overflow-hidden arch bg-bg-alt shadow-lg sm:w-[76%]">
               <Image
-                src="/images/companionship-conversation.jpg"
-                alt="A support professional sharing a warm conversation with an older woman outdoors"
+                src="/images/home-hero.jpg"
+                alt="A support professional and a young woman walking and laughing together along a leafy small-town sidewalk"
                 fill
                 priority
-                sizes="(min-width: 1024px) 40vw, 80vw"
-                className="object-cover object-[30%_center]"
+                sizes="(min-width: 56rem) 40vw, 80vw"
+                className="object-cover object-[50%_30%]"
               />
             </div>
             <div className="absolute bottom-[8%] left-0 w-[44%] overflow-hidden rounded-lg border-[6px] border-bg shadow-lg sm:border-8">
               <div className="relative aspect-square">
                 <Image
-                  src="/images/daily-living-kitchen.jpg"
-                  alt="A woman preparing a meal in her kitchen"
+                  src="/images/home-hero-inset.jpg"
+                  alt="A man chopping vegetables at his kitchen counter while a support worker helps steady the cutting board"
                   fill
-                  sizes="(min-width: 1024px) 20vw, 40vw"
+                  sizes="(min-width: 56rem) 20vw, 40vw"
                   className="object-cover"
                 />
               </div>
