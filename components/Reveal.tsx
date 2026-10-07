@@ -1,7 +1,6 @@
 'use client'
 
-import { MotionConfig, motion } from 'motion/react'
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react'
 
 type RevealProps = {
   children: ReactNode
@@ -11,27 +10,47 @@ type RevealProps = {
   as?: 'div' | 'li' | 'section' | 'article'
 }
 
+// Content is visible in the server HTML; only elements still below the fold after
+// hydration are hidden and then revealed on scroll, so no-JS / slow-JS users see everything.
 export function Reveal({
   children,
   delay = 0,
   y = 18,
   className,
-  as = 'div',
+  as: Tag = 'div',
 }: RevealProps) {
-  const Component = motion[as]
-  return (
-    <Component
-      className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -8% 0px' }}
-      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {children}
-    </Component>
-  )
-}
+  const ref = useRef<HTMLElement>(null)
 
-export function MotionProvider({ children }: { children: ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (el.getBoundingClientRect().top < window.innerHeight) return
+
+    el.dataset.reveal = 'pending'
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        el.dataset.reveal = 'in'
+        io.disconnect()
+      },
+      { rootMargin: '0px 0px -8% 0px' },
+    )
+    io.observe(el)
+    return () => {
+      io.disconnect()
+      delete el.dataset.reveal
+    }
+  }, [])
+
+  const style = {
+    '--reveal-y': `${y}px`,
+    '--reveal-delay': `${delay}s`,
+  } as CSSProperties
+
+  return (
+    <Tag ref={ref as never} className={className} style={style}>
+      {children}
+    </Tag>
+  )
 }

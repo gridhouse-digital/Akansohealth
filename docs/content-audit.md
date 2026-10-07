@@ -2,6 +2,8 @@
 
 Source: https://www.akansohhealthservices.com/ (fetched Oct 7, 2026). Static HTML site, Apache + ModSecurity (blocks non-browser user agents).
 
+> **CLIENT-CONFIRM:** domain/email ownership and testimonial consent are open launch blockers — see [`launch-checklist.md`](./launch-checklist.md). The new site no longer shows the Gmail address and abbreviates testimonial names.
+
 ## Pages / URLs
 
 | Live URL              | Title                                                                  | New route   |

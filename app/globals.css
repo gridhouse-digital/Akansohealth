@@ -143,6 +143,25 @@
   .on-deep :focus-visible {
     outline-color: var(--brand-secondary);
   }
+
+  [data-reveal='pending'] {
+    opacity: 0;
+    transform: translateY(var(--reveal-y, 18px));
+  }
+
+  [data-reveal='in'] {
+    transition:
+      opacity 0.6s var(--ease-out-expo) var(--reveal-delay, 0s),
+      transform 0.6s var(--ease-out-expo) var(--reveal-delay, 0s);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
 }
 
 @utility container-page {

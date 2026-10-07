@@ -22,13 +22,13 @@ npm run dev
 
 ## Environment
 
-| Variable                        | Required | Purpose                                                                                                                                                                |
-| ------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`          | Prod     | Canonical URLs, sitemap, OG. Defaults to `https://www.akansohhealthservices.com`                                                                                       |
-| `CONTACT_FORM_ENDPOINT`         | For form | URL the contact form forwards JSON to (e.g. Formspree, FormSubmit AJAX, Basin, Zapier/Make webhook). If unset, the form shows a prefilled email/phone fallback instead |
-| `CONTACT_FORM_TOKEN`            | Optional | Sent as `Authorization: Bearer …` to the endpoint                                                                                                                      |
-| `NEXT_PUBLIC_JOTFORM_URL`       | Optional | Shows a "Prefer our full intake form?" card on `/contact` linking to the client's Jotform                                                                              |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional | Loads GA4 when set                                                                                                                                                     |
+| Variable                        | Required | Purpose                                                                                                                                                                                                                          |
+| ------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`          | Prod     | Canonical URLs, sitemap, OG. Defaults to `https://www.akansohhealthservices.com`                                                                                                                                                 |
+| `CONTACT_FORM_ENDPOINT`         | For form | URL the contact form forwards JSON to (e.g. Formspree, FormSubmit AJAX, Basin, Zapier/Make webhook). If unset, the form shows a prefilled email/phone fallback instead. `/contact` is prerendered, so redeploy after changing it |
+| `CONTACT_FORM_TOKEN`            | Optional | Sent as `Authorization: Bearer …` to the endpoint                                                                                                                                                                                |
+| `NEXT_PUBLIC_JOTFORM_URL`       | Optional | Shows a "Prefer our full intake form?" card on `/contact` linking to the client's Jotform                                                                                                                                        |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional | Loads GA4 when set                                                                                                                                                                                                               |
 
 ## Where things live
 

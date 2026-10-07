@@ -2,7 +2,14 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CircleCheck, LoaderCircle, Mail, Phone, Send } from 'lucide-react'
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from 'react'
 import { useForm, type FieldError } from 'react-hook-form'
 import {
   contactReasons,
@@ -15,6 +22,8 @@ import { cn } from '@/lib/utils'
 import { SubmitButton } from './Button'
 
 type Status = 'idle' | 'success' | 'fallback'
+
+const subscribe = () => () => {}
 
 const inputClass =
   'block w-full rounded-md border border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-soft/60 transition-[border-color,box-shadow] outline-none focus:border-brand focus:ring-3 focus:ring-brand/15 aria-invalid:border-danger aria-invalid:focus:ring-danger/15'
@@ -83,6 +92,11 @@ export function ContactForm({ configured }: { configured: boolean }) {
   const [status, setStatus] = useState<Status>('idle')
   const [mailto, setMailto] = useState(`mailto:${primaryEmail}`)
   const statusRef = useRef<HTMLDivElement>(null)
+  const hydrated = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  )
 
   const {
     register,
@@ -172,7 +186,13 @@ export function ContactForm({ configured }: { configured: boolean }) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="grid gap-6">
+    <form
+      method="post"
+      action="/api/contact"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate={hydrated}
+      className="grid gap-6"
+    >
       {status === 'fallback' && (
         <div
           ref={statusRef}
@@ -215,6 +235,9 @@ export function ContactForm({ configured }: { configured: boolean }) {
             id={`${uid}-name`}
             type="text"
             autoComplete="name"
+            required
+            minLength={2}
+            maxLength={120}
             aria-invalid={errors.name ? true : undefined}
             aria-describedby={ids('name')}
             className={inputClass}
@@ -226,6 +249,7 @@ export function ContactForm({ configured }: { configured: boolean }) {
             id={`${uid}-email`}
             type="email"
             autoComplete="email"
+            required
             inputMode="email"
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={ids('email')}
@@ -279,6 +303,9 @@ export function ContactForm({ configured }: { configured: boolean }) {
         <textarea
           id={`${uid}-message`}
           rows={6}
+          required
+          minLength={10}
+          maxLength={4000}
           aria-invalid={errors.message ? true : undefined}
           aria-describedby={ids('message', true)}
           className={cn(inputClass, 'resize-y')}

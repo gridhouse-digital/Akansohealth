@@ -56,17 +56,12 @@ export default function ContactPage() {
                   <Mail aria-hidden className="mt-1 size-5 shrink-0 text-gold" />
                   <div className="min-w-0">
                     <p className="text-eyebrow font-bold text-gold uppercase">Email</p>
-                    <div className="mt-2 grid gap-1">
-                      {site.emails.map((e) => (
-                        <a
-                          key={e}
-                          href={`mailto:${e}`}
-                          className="inline-flex min-h-9 items-center break-all hover:text-white hover:underline"
-                        >
-                          {e}
-                        </a>
-                      ))}
-                    </div>
+                    <a
+                      href={`mailto:${site.email}`}
+                      className="mt-2 inline-flex min-h-9 items-center [overflow-wrap:anywhere] hover:text-white hover:underline"
+                    >
+                      {site.email}
+                    </a>
                   </div>
                 </li>
                 <li className="flex gap-4">

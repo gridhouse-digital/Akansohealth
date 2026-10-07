@@ -91,17 +91,12 @@ export function Footer() {
             </li>
             <li className="flex gap-3">
               <Mail aria-hidden className="mt-1 size-4 shrink-0 text-brand" />
-              <span className="grid min-w-0">
-                {site.emails.map((e) => (
-                  <a
-                    key={e}
-                    href={`mailto:${e}`}
-                    className="[overflow-wrap:anywhere] hover:text-brand"
-                  >
-                    {e}
-                  </a>
-                ))}
-              </span>
+              <a
+                href={`mailto:${site.email}`}
+                className="min-w-0 [overflow-wrap:anywhere] hover:text-brand"
+              >
+                {site.email}
+              </a>
             </li>
             <li className="flex gap-3">
               <Clock aria-hidden className="mt-1 size-4 shrink-0 text-brand" />

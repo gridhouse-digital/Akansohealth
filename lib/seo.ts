@@ -52,7 +52,7 @@ export function businessJsonLd() {
     logo: `${siteUrl}/brand/akansoh-logo-600.png`,
     image: `${siteUrl}/og-image.jpg`,
     telephone: site.phones.map((p) => p.e164),
-    email: site.emails[0],
+    email: site.email,
     address: {
       '@type': 'PostalAddress',
       streetAddress: site.address.street,

@@ -12,7 +12,7 @@ export const site = {
     { label: '(347) 822-7070', href: 'tel:+13478227070', e164: '+13478227070' },
     { label: '(267) 370-1956', href: 'tel:+12673701956', e164: '+12673701956' },
   ],
-  emails: ['info@akansohservices.com', 'akansoh937@gmail.com'],
+  email: 'info@akansohservices.com',
   address: {
     street: '4615 Louise Saint Claire Dr',
     city: 'Doylestown',
@@ -35,7 +35,7 @@ export const fullAddress = `${site.address.street}, ${site.address.city}, ${site
 export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`
 
 export const primaryPhone = site.phones[0]
-export const primaryEmail = site.emails[0]
+export const primaryEmail = site.email
 
 export const mainNav = [
   { label: 'Home', href: '/' },
