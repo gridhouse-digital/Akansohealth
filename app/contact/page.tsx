@@ -102,8 +102,8 @@ export default function ContactPage() {
               <div className="mt-5 rounded-xl border border-line bg-surface p-7">
                 <p className="font-semibold text-ink">Prefer our full intake form?</p>
                 <p className="mt-2 text-[0.9375rem] text-ink-soft">
-                  Share more detail about the support you’re looking for using our secure
-                  online form.
+                  Share more detail about the support you’re looking for using our online
+                  intake form.
                 </p>
                 <a
                   href={site.jotformUrl}
