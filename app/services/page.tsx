@@ -3,7 +3,6 @@ import { Check } from 'lucide-react'
 import { Button, TextLink } from '@/components/Button'
 import { CTASection } from '@/components/CTASection'
 import { Eyebrow } from '@/components/Eyebrow'
-import { ImagePlaceholder } from '@/components/ImagePlaceholder'
 import { PageHero } from '@/components/PageHero'
 import { Reveal } from '@/components/Reveal'
 import { pageMetadata } from '@/lib/seo'
@@ -69,23 +68,15 @@ export default function ServicesPage() {
                     reverse ? 'lg:order-2 lg:col-start-7' : '',
                   )}
                 >
-                  {s.image ? (
-                    <div className="relative aspect-[5/4] overflow-hidden rounded-xl bg-bg-alt">
-                      <Image
-                        src={s.image.src}
-                        alt={s.image.alt}
-                        fill
-                        sizes="(min-width: 1024px) 45vw, 100vw"
-                        className="object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <ImagePlaceholder
-                      icon={Icon}
-                      label={`${s.name} photo placeholder`}
-                      className="aspect-[5/4] rounded-xl"
+                  <div className="relative aspect-[5/4] overflow-hidden rounded-xl bg-bg-alt">
+                    <Image
+                      src={s.cardImage.src}
+                      alt={s.cardImage.alt}
+                      fill
+                      sizes="(min-width: 82rem) 36rem, (min-width: 56rem) 45vw, 100vw"
+                      className="object-cover"
                     />
-                  )}
+                  </div>
                 </Reveal>
                 <Reveal
                   delay={0.08}

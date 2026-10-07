@@ -8,6 +8,8 @@ import {
   UsersRound,
 } from 'lucide-react'
 
+export type ServiceImage = { src: string; alt: string }
+
 export type Service = {
   slug: string
   name: string
@@ -16,7 +18,8 @@ export type Service = {
   tagline: string
   intro: string[]
   includes: string[]
-  image?: { src: string; alt: string }
+  cardImage: ServiceImage
+  heroImage: ServiceImage
 }
 
 export const services: Service[] = [
@@ -38,9 +41,13 @@ export const services: Service[] = [
       'Companionship that eases loneliness and isolation',
       'Encouragement toward greater independence',
     ],
-    image: {
+    cardImage: {
       src: '/images/support-at-home.jpg',
       alt: 'A support professional sitting with an older man in his home',
+    },
+    heroImage: {
+      src: '/images/hero-companion.jpg',
+      alt: 'A support professional and an older man with a cane talking as they walk through a tree-lined park',
     },
   },
   {
@@ -61,9 +68,13 @@ export const services: Service[] = [
       'Meal preparation',
       'Open communication with family and caregivers',
     ],
-    image: {
+    cardImage: {
       src: '/images/daily-living-kitchen.jpg',
       alt: 'A woman preparing fresh food at a kitchen sink',
+    },
+    heroImage: {
+      src: '/images/hero-homemaker.jpg',
+      alt: 'A young man watering houseplants on a windowsill while a support professional tidies the kitchen',
     },
   },
   {
@@ -83,6 +94,14 @@ export const services: Service[] = [
       'Essential errands and outings',
       'A focus on safety and reliability',
     ],
+    cardImage: {
+      src: '/images/card-transportation.jpg',
+      alt: 'A support professional holding the minivan door for a man heading to an appointment',
+    },
+    heroImage: {
+      src: '/images/hero-transportation.jpg',
+      alt: 'A woman and her support professional walking from the car to a medical office entrance',
+    },
   },
   {
     slug: 'community-participation-support',
@@ -101,6 +120,14 @@ export const services: Service[] = [
       'Building friendships and social networks',
       'A focus on inclusion and empowerment',
     ],
+    cardImage: {
+      src: '/images/card-community.jpg',
+      alt: 'Two adults and a support professional stacking shelves together while volunteering at a food pantry',
+    },
+    heroImage: {
+      src: '/images/hero-community.jpg',
+      alt: 'A young woman paying at a coffee shop counter while her support professional waits behind her',
+    },
   },
   {
     slug: 'shift-nursing',
@@ -119,9 +146,13 @@ export const services: Service[] = [
       'Health monitoring',
       'Attention to safety throughout each shift',
     ],
-    image: {
-      src: '/images/shift-nursing-home-visit.jpg',
-      alt: 'A caregiver checking an older man’s blood pressure at home',
+    cardImage: {
+      src: '/images/card-nursing.jpg',
+      alt: 'A nurse checking the blood pressure of a man in a wheelchair in his living room',
+    },
+    heroImage: {
+      src: '/images/hero-nursing.jpg',
+      alt: 'A nurse adjusting the pillow of an older woman resting in a home hospital bed',
     },
   },
   {
@@ -140,9 +171,13 @@ export const services: Service[] = [
       'Continued quality care and support',
       'A safe, comfortable environment',
     ],
-    image: {
-      src: '/images/respite-support-home.jpg',
-      alt: 'A support professional talking with a woman on a sofa at home',
+    cardImage: {
+      src: '/images/card-respite.jpg',
+      alt: 'A mother waving goodbye at the door while a support professional does a puzzle with her adult daughter',
+    },
+    heroImage: {
+      src: '/images/hero-respite.jpg',
+      alt: 'A support professional and a young man baking cookies together while a parent relaxes on the patio',
     },
   },
 ]

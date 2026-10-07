@@ -5,7 +5,6 @@ import { Check, Phone } from 'lucide-react'
 import { Button } from '@/components/Button'
 import { CTASection } from '@/components/CTASection'
 import { Eyebrow } from '@/components/Eyebrow'
-import { ImagePlaceholder } from '@/components/ImagePlaceholder'
 import { JsonLd } from '@/components/JsonLd'
 import { PageHero } from '@/components/PageHero'
 import { Reveal } from '@/components/Reveal'
@@ -38,7 +37,6 @@ export default async function ServicePage({ params }: PageProps<'/services/[slug
   const service = getService(slug)
   if (!service) notFound()
 
-  const Icon = service.icon
   const index = services.findIndex((s) => s.slug === service.slug)
   const related = [1, 2, 3].map((n) => services[(index + n) % services.length])
 
@@ -54,24 +52,16 @@ export default async function ServicePage({ params }: PageProps<'/services/[slug
           { label: service.name },
         ]}
         aside={
-          service.image ? (
-            <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden arch bg-bg-alt shadow-md lg:ml-auto">
-              <Image
-                src={service.image.src}
-                alt={service.image.alt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 24rem, 80vw"
-                className="object-cover"
-              />
-            </div>
-          ) : (
-            <ImagePlaceholder
-              icon={Icon}
-              label={`${service.name} photo placeholder`}
-              className="mx-auto aspect-[4/5] max-w-sm arch lg:ml-auto"
+          <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden arch bg-bg-alt shadow-md lg:ml-auto">
+            <Image
+              src={service.heroImage.src}
+              alt={service.heroImage.alt}
+              fill
+              priority
+              sizes="(min-width: 24rem) 24rem, 100vw"
+              className="object-cover"
             />
-          )
+          </div>
         }
       >
         <div className="flex flex-wrap gap-3">

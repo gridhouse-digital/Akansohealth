@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight, Check } from 'lucide-react'
-import type { Service } from '@/lib/services'
+import type { Service, ServiceImage } from '@/lib/services'
 import { cn } from '@/lib/utils'
 
 type Variant = 'feature' | 'image' | 'compact' | 'tint' | 'deep'
@@ -10,16 +10,20 @@ export function ServiceCard({
   service,
   variant = 'compact',
   index,
+  image = service.cardImage,
+  imageClassName,
   className,
 }: {
   service: Service
   variant?: Variant
   index?: number
+  image?: ServiceImage
+  imageClassName?: string
   className?: string
 }) {
   const Icon = service.icon
   const deep = variant === 'deep'
-  const hasImage = (variant === 'feature' || variant === 'image') && service.image
+  const hasImage = variant === 'feature' || variant === 'image'
 
   return (
     <article
@@ -34,7 +38,7 @@ export function ServiceCard({
         className,
       )}
     >
-      {hasImage && service.image && (
+      {hasImage && (
         <div
           className={cn(
             'relative overflow-hidden bg-bg-alt',
@@ -44,15 +48,18 @@ export function ServiceCard({
           )}
         >
           <Image
-            src={service.image.src}
-            alt={service.image.alt}
+            src={image.src}
+            alt={image.alt}
             fill
             sizes={
               variant === 'feature'
-                ? '(min-width: 768px) 32vw, 100vw'
-                : '(min-width: 768px) 30vw, 100vw'
+                ? '(min-width: 80rem) 22rem, (min-width: 56rem) 55vw, 100vw'
+                : '(min-width: 56rem) 30vw, 100vw'
             }
-            className="object-cover transition-transform duration-700 ease-expo group-hover:scale-[1.04]"
+            className={cn(
+              'object-cover transition-transform duration-700 ease-expo group-hover:scale-[1.04]',
+              imageClassName,
+            )}
           />
         </div>
       )}
