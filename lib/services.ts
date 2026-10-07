@@ -42,8 +42,8 @@ export const services: Service[] = [
       'Encouragement toward greater independence',
     ],
     cardImage: {
-      src: '/images/support-at-home.jpg',
-      alt: 'A support professional sitting with an older man in his home',
+      src: '/images/card-companion.jpg',
+      alt: 'An older man and a support professional playing checkers on a sunny back porch',
     },
     heroImage: {
       src: '/images/hero-companion.jpg',
@@ -69,8 +69,8 @@ export const services: Service[] = [
       'Open communication with family and caregivers',
     ],
     cardImage: {
-      src: '/images/daily-living-kitchen.jpg',
-      alt: 'A woman preparing fresh food at a kitchen sink',
+      src: '/images/card-homemaker.jpg',
+      alt: 'A woman folding laundry at the dining table with a support professional',
     },
     heroImage: {
       src: '/images/hero-homemaker.jpg',

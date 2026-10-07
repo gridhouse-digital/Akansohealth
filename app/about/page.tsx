@@ -58,12 +58,12 @@ export default function AboutPage() {
         aside={
           <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden arch bg-bg-alt shadow-md lg:ml-auto">
             <Image
-              src="/images/conversation-table.jpg"
-              alt="Two women talking together at a small table by a bright window"
+              src="/images/about-hero.jpg"
+              alt="A young man and his support professional chatting on the front steps of a small-town library, both holding books"
               fill
               priority
-              sizes="(min-width: 1024px) 24rem, 80vw"
-              className="object-cover object-[35%_center]"
+              sizes="(min-width: 24rem) 24rem, 100vw"
+              className="object-cover"
             />
           </div>
         }
@@ -193,8 +193,8 @@ export default function AboutPage() {
               </>
             }
             image={{
-              src: '/images/support-at-home.jpg',
-              alt: 'A support professional sitting with an older man in his home',
+              src: '/images/about-team.jpg',
+              alt: 'A support professional being welcomed at the front door by a mother and her adult son',
             }}
           >
             <p className="text-lead">
