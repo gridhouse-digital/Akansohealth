@@ -38,13 +38,13 @@ function Field({
     <div>
       <label
         htmlFor={id}
-        className="text-ink flex items-baseline justify-between text-[0.9375rem] font-semibold"
+        className="flex items-baseline justify-between text-[0.9375rem] font-semibold text-ink"
       >
         {label}
-        {optional && <span className="text-ink-soft text-sm font-normal">Optional</span>}
+        {optional && <span className="text-sm font-normal text-ink-soft">Optional</span>}
       </label>
       {hint && (
-        <p id={`${id}-hint`} className="text-ink-soft mt-1 text-sm">
+        <p id={`${id}-hint`} className="mt-1 text-sm text-ink-soft">
           {hint}
         </p>
       )}
@@ -53,7 +53,7 @@ function Field({
         <p
           id={`${id}-error`}
           role="alert"
-          className="text-danger mt-2 text-sm font-medium"
+          className="mt-2 text-sm font-medium text-danger"
         >
           {error.message}
         </p>
@@ -146,15 +146,15 @@ export function ContactForm({ configured }: { configured: boolean }) {
         ref={statusRef}
         tabIndex={-1}
         role="status"
-        className="border-success/30 bg-success/5 rounded-lg border p-8 outline-none"
+        className="rounded-lg border border-success/30 bg-success/5 p-8 outline-none"
       >
-        <CircleCheck aria-hidden className="text-success size-8" />
-        <h3 className="text-h3 text-ink mt-5">Thank you — your message is on its way.</h3>
-        <p className="text-ink-soft mt-3">
+        <CircleCheck aria-hidden className="size-8 text-success" />
+        <h3 className="mt-5 text-h3 text-ink">Thank you — your message is on its way.</h3>
+        <p className="mt-3 text-ink-soft">
           Our team will be in touch. If your question is time-sensitive, please call us at{' '}
           <a
             href={primaryPhone.href}
-            className="text-brand font-semibold underline-offset-4 hover:underline"
+            className="font-semibold text-brand underline-offset-4 hover:underline"
           >
             {primaryPhone.label}
           </a>
@@ -163,7 +163,7 @@ export function ContactForm({ configured }: { configured: boolean }) {
         <button
           type="button"
           onClick={() => setStatus('idle')}
-          className="text-brand mt-6 min-h-11 font-semibold underline-offset-4 hover:underline"
+          className="mt-6 min-h-11 font-semibold text-brand underline-offset-4 hover:underline"
         >
           Send another message
         </button>
@@ -178,21 +178,21 @@ export function ContactForm({ configured }: { configured: boolean }) {
           ref={statusRef}
           tabIndex={-1}
           role="status"
-          className="border-gold/40 bg-gold/8 rounded-lg border p-6 outline-none"
+          className="rounded-lg border border-gold/40 bg-gold/8 p-6 outline-none"
         >
-          <p className="text-ink font-semibold">
+          <p className="font-semibold text-ink">
             {configured
               ? 'We couldn’t send your message just now.'
               : 'Almost there — send your message by email or phone.'}
           </p>
-          <p className="text-ink-soft mt-2 text-[0.9375rem]">
+          <p className="mt-2 text-[0.9375rem] text-ink-soft">
             Your details are ready to go. Open your email app with the message filled in,
             or call us directly.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
             <a
               href={mailto}
-              className="text-brand inline-flex min-h-11 items-center gap-2 font-semibold hover:underline"
+              className="inline-flex min-h-11 items-center gap-2 font-semibold text-brand hover:underline"
             >
               <Mail aria-hidden className="size-4" /> Email {primaryEmail}
             </a>
@@ -200,7 +200,7 @@ export function ContactForm({ configured }: { configured: boolean }) {
               <a
                 key={p.e164}
                 href={p.href}
-                className="text-brand inline-flex min-h-11 items-center gap-2 font-semibold hover:underline"
+                className="inline-flex min-h-11 items-center gap-2 font-semibold text-brand hover:underline"
               >
                 <Phone aria-hidden className="size-4" /> {p.label}
               </a>
@@ -295,12 +295,12 @@ export function ContactForm({ configured }: { configured: boolean }) {
           {...register('company')}
         />
       </div>
-      <div className="border-line flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-ink-soft text-sm">
+      <div className="flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-ink-soft">
           Prefer to talk? Call{' '}
           <a
             href={primaryPhone.href}
-            className="text-brand font-semibold hover:underline"
+            className="font-semibold text-brand hover:underline"
           >
             {primaryPhone.label}
           </a>

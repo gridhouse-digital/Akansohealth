@@ -55,7 +55,7 @@ export default async function ServicePage({ params }: PageProps<'/services/[slug
         ]}
         aside={
           service.image ? (
-            <div className="arch bg-bg-alt relative mx-auto aspect-[4/5] max-w-sm overflow-hidden shadow-md lg:ml-auto">
+            <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden arch bg-bg-alt shadow-md lg:ml-auto">
               <Image
                 src={service.image.src}
                 alt={service.image.alt}
@@ -69,7 +69,7 @@ export default async function ServicePage({ params }: PageProps<'/services/[slug
             <ImagePlaceholder
               icon={Icon}
               label={`${service.name} photo placeholder`}
-              className="arch mx-auto aspect-[4/5] max-w-sm lg:ml-auto"
+              className="mx-auto aspect-[4/5] max-w-sm arch lg:ml-auto"
             />
           )
         }
@@ -93,10 +93,10 @@ export default async function ServicePage({ params }: PageProps<'/services/[slug
         <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
           <Reveal className="lg:col-span-6">
             <Eyebrow>Overview</Eyebrow>
-            <h2 id="overview-heading" className="text-h2 text-ink mt-5">
+            <h2 id="overview-heading" className="mt-5 text-h2 text-ink">
               {service.tagline}
             </h2>
-            <div className="text-ink-soft mt-8 space-y-5">
+            <div className="mt-8 space-y-5 text-ink-soft">
               {service.intro.map((p, i) => (
                 <p key={i} className={i === 0 ? 'text-lead' : undefined}>
                   {p}
@@ -105,24 +105,24 @@ export default async function ServicePage({ params }: PageProps<'/services/[slug
             </div>
           </Reveal>
           <Reveal delay={0.08} className="lg:col-span-5 lg:col-start-8">
-            <div className="border-line bg-surface rounded-xl border p-8 sm:p-10">
-              <h3 className="text-ink text-[1.625rem] leading-tight">
+            <div className="rounded-xl border border-line bg-surface p-8 sm:p-10">
+              <h3 className="text-[1.625rem] leading-tight text-ink">
                 What this support can include
               </h3>
               <ul className="mt-7 grid gap-4">
                 {service.includes.map((item) => (
                   <li
                     key={item}
-                    className="border-line text-ink flex gap-3.5 border-t pt-4 first:border-t-0 first:pt-0"
+                    className="flex gap-3.5 border-t border-line pt-4 text-ink first:border-t-0 first:pt-0"
                   >
-                    <span className="bg-bg-alt mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full">
-                      <Check aria-hidden className="text-brand size-3.5" />
+                    <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-bg-alt">
+                      <Check aria-hidden className="size-3.5 text-brand" />
                     </span>
                     {item}
                   </li>
                 ))}
               </ul>
-              <p className="border-line text-ink-soft mt-8 border-t pt-6 text-sm">
+              <p className="mt-8 border-t border-line pt-6 text-sm text-ink-soft">
                 Every plan is shaped around the individual. Talk with our team about what
                 support would look like for you or your loved one.
               </p>
@@ -131,15 +131,15 @@ export default async function ServicePage({ params }: PageProps<'/services/[slug
         </div>
       </section>
 
-      <section aria-labelledby="approach-heading" className="on-deep section-y bg-deep">
+      <section aria-labelledby="approach-heading" className="on-deep bg-deep section-y">
         <div className="container-page grid gap-10 lg:grid-cols-12 lg:items-center">
           <Reveal className="lg:col-span-7">
             <Eyebrow tone="light">Our approach</Eyebrow>
-            <h2 id="approach-heading" className="text-h2 text-on-deep mt-5">
+            <h2 id="approach-heading" className="mt-5 text-h2 text-on-deep">
               Person-centered, <em className="text-gold">from the first conversation.</em>
             </h2>
           </Reveal>
-          <Reveal delay={0.08} className="text-on-deep-muted space-y-5 lg:col-span-5">
+          <Reveal delay={0.08} className="space-y-5 text-on-deep-muted lg:col-span-5">
             <p className="text-lead">
               We combine compassion and healthcare to help individuals live independently
               and with dignity.
@@ -157,7 +157,7 @@ export default async function ServicePage({ params }: PageProps<'/services/[slug
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <Eyebrow>More ways we help</Eyebrow>
-              <h2 id="related-heading" className="text-h2 text-ink mt-5">
+              <h2 id="related-heading" className="mt-5 text-h2 text-ink">
                 Related services
               </h2>
             </div>

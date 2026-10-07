@@ -26,7 +26,7 @@ export function Header() {
         'sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-300',
         scrolled
           ? 'border-line bg-bg/90 shadow-[0_8px_30px_-20px_rgb(20_42_34/0.35)] backdrop-blur-md'
-          : 'bg-bg border-transparent',
+          : 'border-transparent bg-bg',
       )}
     >
       <div className="container-page flex h-(--header-h) items-center justify-between gap-6">
@@ -49,7 +49,7 @@ export function Header() {
                     <span
                       aria-hidden
                       className={cn(
-                        'bg-gold ease-expo absolute inset-x-4 bottom-1.5 h-px origin-left transition-transform duration-500',
+                        'absolute inset-x-4 bottom-1.5 h-px origin-left bg-gold transition-transform duration-500 ease-expo',
                         active ? 'scale-x-100' : 'scale-x-0',
                       )}
                     />

@@ -24,11 +24,11 @@ export function PageHero({
   aside,
 }: PageHeroProps) {
   return (
-    <section className="border-line relative overflow-hidden border-b">
+    <section className="relative overflow-hidden border-b border-line">
       <div className="container-page pt-12 pb-16 md:pt-16 md:pb-24">
         {breadcrumbs && (
           <nav aria-label="Breadcrumb" className="mb-10">
-            <ol className="text-ink-soft flex flex-wrap items-center gap-1.5 text-sm">
+            <ol className="flex flex-wrap items-center gap-1.5 text-sm text-ink-soft">
               {breadcrumbs.map((c, i) => (
                 <li key={c.label} className="flex items-center gap-1.5">
                   {i > 0 && <ChevronRight aria-hidden className="size-3.5 opacity-60" />}
@@ -49,9 +49,9 @@ export function PageHero({
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
           <Reveal className={aside ? 'lg:col-span-7' : 'lg:col-span-9'}>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h1 className="text-h1 text-ink mt-6">{title}</h1>
+            <h1 className="mt-6 text-h1 text-ink">{title}</h1>
             {description && (
-              <p className="text-lead text-ink-soft mt-7 max-w-2xl">{description}</p>
+              <p className="mt-7 max-w-2xl text-lead text-ink-soft">{description}</p>
             )}
             {children && <div className="mt-9">{children}</div>}
           </Reveal>

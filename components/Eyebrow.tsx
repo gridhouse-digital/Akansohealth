@@ -13,7 +13,7 @@ export function Eyebrow({
   return (
     <p
       className={cn(
-        'text-eyebrow flex items-center gap-3 font-bold uppercase',
+        'flex items-center gap-3 text-eyebrow font-bold uppercase',
         tone === 'light' ? 'text-gold' : 'text-gold-ink',
         className,
       )}

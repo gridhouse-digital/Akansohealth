@@ -45,7 +45,7 @@ function Inner({
       {arrow && (
         <ArrowRight
           aria-hidden
-          className="ease-expo size-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+          className="size-4 transition-transform duration-300 ease-expo group-hover/btn:translate-x-1"
         />
       )}
     </>
@@ -116,16 +116,16 @@ export function TextLink({
     <Link
       href={href}
       className={cn(
-        'group/link text-brand hover:text-brand-hover inline-flex items-center gap-2 text-[0.9375rem] font-semibold transition-colors',
+        'group/link inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-brand transition-colors hover:text-brand-hover',
         className,
       )}
     >
-      <span className="ease-expo bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-500 group-hover/link:bg-[length:100%_1px]">
+      <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-500 ease-expo group-hover/link:bg-[length:100%_1px]">
         {children}
       </span>
       <ArrowRight
         aria-hidden
-        className="ease-expo size-4 transition-transform duration-300 group-hover/link:translate-x-1"
+        className="size-4 transition-transform duration-300 ease-expo group-hover/link:translate-x-1"
       />
     </Link>
   )

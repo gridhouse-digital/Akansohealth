@@ -35,7 +35,7 @@ export function TestimonialCard({
         <span
           aria-hidden
           className={cn(
-            'font-display block text-[4.5rem] leading-[0.6]',
+            'block font-display text-[4.5rem] leading-[0.6]',
             featured ? 'text-gold' : 'text-gold/70',
           )}
         >
@@ -43,10 +43,10 @@ export function TestimonialCard({
         </span>
         <blockquote
           className={cn(
-            'font-display mt-4',
+            'mt-4 font-display',
             featured
-              ? 'text-on-deep text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)] leading-[1.25]'
-              : 'text-ink text-[1.3125rem] leading-snug',
+              ? 'text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)] leading-[1.25] text-on-deep'
+              : 'text-[1.3125rem] leading-snug text-ink',
           )}
         >
           <p>{testimonial.quote}</p>
@@ -57,7 +57,7 @@ export function TestimonialCard({
           aria-hidden
           className={cn(
             'flex size-11 items-center justify-center rounded-full text-sm font-bold',
-            featured ? 'text-gold bg-white/10' : 'bg-bg-alt text-brand',
+            featured ? 'bg-white/10 text-gold' : 'bg-bg-alt text-brand',
           )}
         >
           {initials(testimonial.name)}

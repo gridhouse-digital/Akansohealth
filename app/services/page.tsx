@@ -38,9 +38,9 @@ export default function ServicesPage() {
                 <li key={s.slug}>
                   <a
                     href={`#${s.slug}`}
-                    className="border-line-strong bg-surface text-ink hover:border-brand hover:text-brand inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line-strong bg-surface px-4 text-sm font-medium text-ink transition-colors hover:border-brand hover:text-brand"
                   >
-                    <Icon aria-hidden className="text-gold-ink size-4" />
+                    <Icon aria-hidden className="size-4 text-gold-ink" />
                     {s.name}
                   </a>
                 </li>
@@ -50,7 +50,7 @@ export default function ServicesPage() {
         </nav>
       </PageHero>
 
-      <div className="divide-line divide-y">
+      <div className="divide-y divide-line">
         {services.map((s, i) => {
           const Icon = s.icon
           const reverse = i % 2 === 1
@@ -70,7 +70,7 @@ export default function ServicesPage() {
                   )}
                 >
                   {s.image ? (
-                    <div className="bg-bg-alt relative aspect-[5/4] overflow-hidden rounded-xl">
+                    <div className="relative aspect-[5/4] overflow-hidden rounded-xl bg-bg-alt">
                       <Image
                         src={s.image.src}
                         alt={s.image.alt}
@@ -95,22 +95,22 @@ export default function ServicesPage() {
                   )}
                 >
                   <div className="flex items-center gap-4">
-                    <span className="bg-bg-alt text-brand flex size-12 items-center justify-center rounded-md">
+                    <span className="flex size-12 items-center justify-center rounded-md bg-bg-alt text-brand">
                       <Icon aria-hidden className="size-5.5" strokeWidth={1.6} />
                     </span>
                     <Eyebrow>{String(i + 1).padStart(2, '0')} / Service</Eyebrow>
                   </div>
-                  <h2 id={`${s.slug}-heading`} className="text-h2 text-ink mt-6">
+                  <h2 id={`${s.slug}-heading`} className="mt-6 text-h2 text-ink">
                     {s.name}
                   </h2>
-                  <p className="font-display text-brand mt-4 text-xl italic">
+                  <p className="mt-4 font-display text-xl text-brand italic">
                     {s.tagline}
                   </p>
-                  <p className="text-ink-soft mt-6">{s.intro[0]}</p>
-                  <ul className="border-line mt-7 grid gap-3 border-t pt-7 sm:grid-cols-2">
+                  <p className="mt-6 text-ink-soft">{s.intro[0]}</p>
+                  <ul className="mt-7 grid gap-3 border-t border-line pt-7 sm:grid-cols-2">
                     {s.includes.map((item) => (
-                      <li key={item} className="text-ink flex gap-3 text-[0.9375rem]">
-                        <Check aria-hidden className="text-brand mt-1 size-4 shrink-0" />
+                      <li key={item} className="flex gap-3 text-[0.9375rem] text-ink">
+                        <Check aria-hidden className="mt-1 size-4 shrink-0 text-brand" />
                         {item}
                       </li>
                     ))}
@@ -130,30 +130,11 @@ export default function ServicesPage() {
         })}
       </div>
 
-      <section
-        aria-labelledby="unsure-heading"
-        className="border-line bg-bg-alt border-t"
-      >
-        <div className="container-page grid gap-8 py-16 md:grid-cols-12 md:items-center md:py-20">
-          <div className="md:col-span-8">
-            <h2 id="unsure-heading" className="text-h3 text-ink">
-              Not sure which service fits?
-            </h2>
-            <p className="text-ink-soft mt-3 max-w-2xl">
-              That’s completely okay. Some people benefit from more than one service, and
-              needs can change over time. Tell us a little about your situation and we’ll
-              talk it through together.
-            </p>
-          </div>
-          <div className="md:col-span-4 md:text-right">
-            <Button href="/contact" size="lg" arrow>
-              Talk with our team
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <CTASection />
+      <CTASection
+        title="Not sure which service fits?"
+        description="That’s completely okay. Some people benefit from more than one service, and needs can change over time. Tell us a little about your situation and we’ll talk it through together."
+        cta="Talk with our team"
+      />
     </>
   )
 }

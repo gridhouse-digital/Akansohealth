@@ -106,27 +106,27 @@ export default function HomePage() {
 
       <section
         aria-labelledby="pillars-heading"
-        className="border-line bg-surface border-y"
+        className="border-y border-line bg-surface"
       >
         <h2 id="pillars-heading" className="sr-only">
           What guides our care
         </h2>
-        <ul className="container-page xs:grid-cols-2 grid grid-cols-1 lg:grid-cols-4">
+        <ul className="container-page grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4">
           {pillars.map(({ icon: Icon, title, text }, i) => (
             <Reveal
               as="li"
               key={title}
               delay={i * 0.05}
-              className="border-line xs:px-5 first:xs:pl-0 flex gap-4 py-7 lg:border-l lg:px-7 lg:first:border-l-0 lg:first:pl-0"
+              className="flex gap-4 border-line py-7 xs:px-5 first:xs:pl-0 lg:border-l lg:px-7 lg:first:border-l-0 lg:first:pl-0"
             >
               <Icon
                 aria-hidden
                 strokeWidth={1.5}
-                className="text-gold-ink mt-0.5 size-6 shrink-0"
+                className="mt-0.5 size-6 shrink-0 text-gold-ink"
               />
               <div>
-                <h3 className="text-ink font-sans text-base font-semibold">{title}</h3>
-                <p className="text-ink-soft mt-1 text-[0.9375rem] leading-relaxed">
+                <h3 className="font-sans text-base font-semibold text-ink">{title}</h3>
+                <p className="mt-1 text-[0.9375rem] leading-relaxed text-ink-soft">
                   {text}
                 </p>
               </div>
@@ -154,7 +154,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="mission-heading" className="section-y bg-bg-alt">
+      <section aria-labelledby="mission-heading" className="bg-bg-alt section-y">
         <div className="container-page">
           <FeatureSplit
             headingId="mission-heading"
@@ -180,7 +180,7 @@ export default function HomePage() {
               are better equipped when they are anchored in a cohesive support system —
               and every person has the right to choose their own path.
             </p>
-            <blockquote className="border-gold font-display text-ink border-l-2 pl-5 text-[1.375rem] leading-snug italic">
+            <blockquote className="border-l-2 border-gold pl-5 font-display text-[1.375rem] leading-snug text-ink italic">
               “Building a healthy community, one individual at a time.”
             </blockquote>
             <div className="pt-2">
@@ -192,7 +192,7 @@ export default function HomePage() {
 
       <section
         aria-labelledby="why-heading"
-        className="on-deep section-y bg-deep relative isolate overflow-hidden"
+        className="on-deep relative isolate overflow-hidden bg-deep section-y"
       >
         <Image
           src="/brand/akansoh-mark.png"
@@ -238,13 +238,13 @@ export default function HomePage() {
             </Reveal>
             <Reveal
               delay={0.1}
-              className="border-line bg-surface relative z-10 mx-4 -mt-16 rounded-lg border p-7 shadow-lg sm:mx-8 sm:p-9 lg:absolute lg:right-10 lg:-bottom-12 lg:mx-0 lg:mt-0 lg:max-w-lg lg:p-11"
+              className="relative z-10 mx-4 -mt-16 rounded-lg border border-line bg-surface p-7 shadow-lg sm:mx-8 sm:p-9 lg:absolute lg:right-10 lg:-bottom-12 lg:mx-0 lg:mt-0 lg:max-w-lg lg:p-11"
             >
               <Eyebrow>Community Participation Support</Eyebrow>
-              <h2 id="community-heading" className="text-h3 text-ink mt-5">
+              <h2 id="community-heading" className="mt-5 text-h3 text-ink">
                 Belonging happens out in the world.
               </h2>
-              <p className="text-ink-soft mt-4">
+              <p className="mt-4 text-ink-soft">
                 We support individuals to take part in their community, enjoy meaningful
                 activities and build friendships of their own — with inclusion and
                 empowerment at the heart of it.
@@ -259,7 +259,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="steps-heading" className="section-y bg-bg-alt lg:mt-12">
+      <section aria-labelledby="steps-heading" className="bg-bg-alt section-y lg:mt-12">
         <div className="container-page">
           <SectionIntro
             id="steps-heading"
@@ -267,19 +267,19 @@ export default function HomePage() {
             title="A simple, personal way to get started."
             description="Reaching out is the first step. From there, we take the time to understand what support would make the biggest difference."
           />
-          <ol className="border-line bg-line mt-16 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-16 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
               <Reveal
                 as="li"
                 key={s.title}
                 delay={i * 0.06}
-                className="bg-surface flex flex-col p-7 lg:p-8"
+                className="flex flex-col bg-surface p-7 lg:p-8"
               >
-                <span className="font-display text-gold text-[3.25rem] leading-none italic">
+                <span className="font-display text-[3.25rem] leading-none text-gold italic">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <h3 className="text-ink mt-8 text-[1.5rem] leading-tight">{s.title}</h3>
-                <p className="text-ink-soft mt-3 text-[0.9375rem] leading-relaxed">
+                <h3 className="mt-8 text-[1.5rem] leading-tight text-ink">{s.title}</h3>
+                <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">
                   {s.text}
                 </p>
               </Reveal>
@@ -302,7 +302,7 @@ export default function HomePage() {
               </>
             }
             media={
-              <div className="arch border-line bg-bg-alt relative mx-auto flex aspect-[4/5] max-w-md flex-col items-center justify-center gap-8 overflow-hidden border px-10 lg:max-w-none">
+              <div className="relative mx-auto flex aspect-[4/5] max-w-md flex-col items-center justify-center gap-8 overflow-hidden arch border border-line bg-bg-alt px-10 lg:max-w-none">
                 <Image
                   src="/brand/akansoh-logo-600.png"
                   alt="Akansoh Health Services logo — People, Purpose, Possibility"
@@ -336,7 +336,7 @@ export default function HomePage() {
 
       <section
         aria-labelledby="testimonials-heading"
-        className="section-y border-line border-t"
+        className="border-t border-line section-y"
       >
         <div className="container-page">
           <SectionIntro

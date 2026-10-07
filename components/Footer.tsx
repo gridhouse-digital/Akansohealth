@@ -9,7 +9,7 @@ const linkClass =
 
 export function Footer() {
   return (
-    <footer className="border-line bg-bg-alt border-t">
+    <footer className="border-t border-line bg-bg-alt">
       <div className="container-page grid gap-12 py-16 md:grid-cols-12 md:gap-8 md:py-20">
         <div className="md:col-span-12 lg:col-span-4">
           <Link
@@ -26,7 +26,7 @@ export function Footer() {
               className="h-auto w-36"
             />
           </Link>
-          <p className="text-ink-soft mt-6 max-w-sm text-[0.9375rem]">
+          <p className="mt-6 max-w-sm text-[0.9375rem] text-ink-soft">
             Compassionate, person-centered support that helps individuals live
             independently and with dignity — building a healthy community, one individual
             at a time.
@@ -34,7 +34,7 @@ export function Footer() {
         </div>
 
         <nav aria-label="Footer" className="md:col-span-3 lg:col-span-2">
-          <h2 className="text-eyebrow text-gold-ink font-sans font-bold uppercase">
+          <h2 className="font-sans text-eyebrow font-bold text-gold-ink uppercase">
             Explore
           </h2>
           <ul className="mt-4">
@@ -49,7 +49,7 @@ export function Footer() {
         </nav>
 
         <nav aria-label="Services" className="md:col-span-4 lg:col-span-3">
-          <h2 className="text-eyebrow text-gold-ink font-sans font-bold uppercase">
+          <h2 className="font-sans text-eyebrow font-bold text-gold-ink uppercase">
             Services
           </h2>
           <ul className="mt-4">
@@ -64,12 +64,12 @@ export function Footer() {
         </nav>
 
         <div className="md:col-span-5 lg:col-span-3">
-          <h2 className="text-eyebrow text-gold-ink font-sans font-bold uppercase">
+          <h2 className="font-sans text-eyebrow font-bold text-gold-ink uppercase">
             Contact
           </h2>
-          <ul className="text-ink-soft mt-4 grid gap-3 text-[0.9375rem]">
+          <ul className="mt-4 grid gap-3 text-[0.9375rem] text-ink-soft">
             <li className="flex gap-3">
-              <MapPin aria-hidden className="text-brand mt-1 size-4 shrink-0" />
+              <MapPin aria-hidden className="mt-1 size-4 shrink-0 text-brand" />
               <a
                 href={mapsUrl}
                 target="_blank"
@@ -80,7 +80,7 @@ export function Footer() {
               </a>
             </li>
             <li className="flex gap-3">
-              <Phone aria-hidden className="text-brand mt-1 size-4 shrink-0" />
+              <Phone aria-hidden className="mt-1 size-4 shrink-0 text-brand" />
               <span className="grid">
                 {site.phones.map((p) => (
                   <a key={p.e164} href={p.href} className="hover:text-brand">
@@ -90,24 +90,24 @@ export function Footer() {
               </span>
             </li>
             <li className="flex gap-3">
-              <Mail aria-hidden className="text-brand mt-1 size-4 shrink-0" />
+              <Mail aria-hidden className="mt-1 size-4 shrink-0 text-brand" />
               <span className="grid min-w-0">
                 {site.emails.map((e) => (
-                  <a key={e} href={`mailto:${e}`} className="hover:text-brand break-all">
+                  <a key={e} href={`mailto:${e}`} className="break-all hover:text-brand">
                     {e}
                   </a>
                 ))}
               </span>
             </li>
             <li className="flex gap-3">
-              <Clock aria-hidden className="text-brand mt-1 size-4 shrink-0" />
+              <Clock aria-hidden className="mt-1 size-4 shrink-0 text-brand" />
               {site.hours.label}
             </li>
           </ul>
         </div>
       </div>
-      <div className="border-line border-t">
-        <div className="container-page text-ink-soft flex flex-col gap-2 py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-t border-line">
+        <div className="container-page flex flex-col gap-2 py-6 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>

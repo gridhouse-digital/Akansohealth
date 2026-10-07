@@ -43,9 +43,9 @@ export function FeatureSplit({
           (image && (
             <div
               className={cn(
-                'bg-bg-alt relative overflow-hidden',
+                'relative overflow-hidden bg-bg-alt',
                 shape === 'arch'
-                  ? 'arch mx-auto aspect-[4/5] max-w-md lg:max-w-none'
+                  ? 'mx-auto aspect-[4/5] max-w-md arch lg:max-w-none'
                   : 'aspect-[5/4] rounded-xl',
               )}
             >
@@ -69,11 +69,11 @@ export function FeatureSplit({
         <Eyebrow>{eyebrow}</Eyebrow>
         <Heading
           id={headingId}
-          className={cn('text-ink mt-5', headingLevel === 'h2' ? 'text-h2' : 'text-h3')}
+          className={cn('mt-5 text-ink', headingLevel === 'h2' ? 'text-h2' : 'text-h3')}
         >
           {title}
         </Heading>
-        <div className="text-ink-soft mt-6 space-y-5">{children}</div>
+        <div className="mt-6 space-y-5 text-ink-soft">{children}</div>
       </Reveal>
     </div>
   )

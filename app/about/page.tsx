@@ -56,7 +56,7 @@ export default function AboutPage() {
         description="At Akansoh Health Services, we combine compassion and healthcare to support individuals with intellectual and developmental disabilities — helping them live independently, with dignity and on their own terms."
         breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
         aside={
-          <div className="arch bg-bg-alt relative mx-auto aspect-[4/5] max-w-sm overflow-hidden shadow-md lg:ml-auto">
+          <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden arch bg-bg-alt shadow-md lg:ml-auto">
             <Image
               src="/images/conversation-table.jpg"
               alt="Two women talking together at a small table by a bright window"
@@ -73,14 +73,14 @@ export default function AboutPage() {
         <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
           <Reveal className="lg:col-span-5">
             <Eyebrow>What we’re about</Eyebrow>
-            <h2 id="story-heading" className="text-h2 text-ink mt-5">
+            <h2 id="story-heading" className="mt-5 text-h2 text-ink">
               Support that enhances quality of life — and{' '}
               <em className="text-brand">fosters independence.</em>
             </h2>
           </Reveal>
           <Reveal
             delay={0.08}
-            className="text-ink-soft space-y-6 lg:col-span-6 lg:col-start-7 lg:pt-12"
+            className="space-y-6 text-ink-soft lg:col-span-6 lg:col-start-7 lg:pt-12"
           >
             <p className="text-lead">
               Akansoh Health Services is committed to improving the lives of individuals
@@ -103,7 +103,7 @@ export default function AboutPage() {
               {services.map((s) => (
                 <li
                   key={s.slug}
-                  className="border-line-strong bg-surface text-ink rounded-full border px-3.5 py-1.5 text-sm"
+                  className="rounded-full border border-line-strong bg-surface px-3.5 py-1.5 text-sm text-ink"
                 >
                   {s.name}
                 </li>
@@ -113,13 +113,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-labelledby="mission-heading" className="section-y bg-bg-alt">
+      <section aria-labelledby="mission-heading" className="bg-bg-alt section-y">
         <div className="container-page">
           <h2 id="mission-heading" className="sr-only">
             Our mission and vision
           </h2>
           <div className="grid gap-5 lg:grid-cols-2">
-            <Reveal className="on-deep bg-deep relative isolate overflow-hidden rounded-xl p-8 sm:p-12">
+            <Reveal className="on-deep relative isolate overflow-hidden rounded-xl bg-deep p-8 sm:p-12">
               <Image
                 src="/brand/akansoh-mark.png"
                 alt=""
@@ -129,11 +129,11 @@ export default function AboutPage() {
                 className="pointer-events-none absolute -right-16 -bottom-20 -z-10 w-80 opacity-[0.07]"
               />
               <Eyebrow tone="light">Our mission</Eyebrow>
-              <p className="font-display text-on-deep mt-8 text-[clamp(1.5rem,1.2rem+1.1vw,2.125rem)] leading-[1.25]">
+              <p className="mt-8 font-display text-[clamp(1.5rem,1.2rem+1.1vw,2.125rem)] leading-[1.25] text-on-deep">
                 To support individuals with developmental disabilities to achieve greater
                 independence and function at their highest potential.
               </p>
-              <p className="text-on-deep-muted mt-8">
+              <p className="mt-8 text-on-deep-muted">
                 We are dedicated to improving the lives of individuals who are vulnerable
                 and underserved. We provide the support people need, knowing they are
                 better equipped when anchored in a cohesive support system — and we
@@ -142,13 +142,13 @@ export default function AboutPage() {
             </Reveal>
             <Reveal
               delay={0.08}
-              className="border-line bg-surface rounded-xl border p-8 sm:p-12"
+              className="rounded-xl border border-line bg-surface p-8 sm:p-12"
             >
               <Eyebrow>Our vision</Eyebrow>
-              <p className="font-display text-ink mt-8 text-[clamp(1.5rem,1.2rem+1.1vw,2.125rem)] leading-[1.25]">
+              <p className="mt-8 font-display text-[clamp(1.5rem,1.2rem+1.1vw,2.125rem)] leading-[1.25] text-ink">
                 To foster a continuum of support services in every community we serve.
               </p>
-              <p className="text-ink-soft mt-8">
+              <p className="mt-8 text-ink-soft">
                 We aim to be the region’s provider of choice for individuals and families
                 seeking services — and the region’s employer of choice for qualified,
                 committed professionals.
@@ -182,7 +182,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-labelledby="team-heading" className="section-y border-line border-t">
+      <section aria-labelledby="team-heading" className="border-t border-line section-y">
         <div className="container-page">
           <FeatureSplit
             headingId="team-heading"
@@ -206,8 +206,8 @@ export default function AboutPage() {
               skilled nursing or an afternoon out in the community, our team brings the
               same respect, patience and attention to every visit.
             </p>
-            <div className="text-ink flex items-center gap-3 pt-2">
-              <HandHeart aria-hidden className="text-gold-ink size-5" />
+            <div className="flex items-center gap-3 pt-2 text-ink">
+              <HandHeart aria-hidden className="size-5 text-gold-ink" />
               <span className="font-semibold">
                 Compassionate. Professional. Person-centered.
               </span>
@@ -223,7 +223,7 @@ export default function AboutPage() {
 
       <section
         aria-labelledby="about-testimonials-heading"
-        className="section-y bg-bg-alt"
+        className="bg-bg-alt section-y"
       >
         <div className="container-page">
           <SectionIntro

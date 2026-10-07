@@ -72,7 +72,7 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
         aria-controls="mobile-nav"
         aria-label="Open menu"
         onClick={() => setOpen(true)}
-        className="border-line-strong text-ink hover:border-brand hover:text-brand inline-flex size-11 items-center justify-center rounded-full border transition-colors lg:hidden"
+        className="inline-flex size-11 items-center justify-center rounded-full border border-line-strong text-ink transition-colors hover:border-brand hover:text-brand lg:hidden"
       >
         <Menu aria-hidden className="size-5" />
       </button>
@@ -83,7 +83,7 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
               <div className="fixed inset-0 z-50 lg:hidden">
                 <motion.div
                   aria-hidden
-                  className="bg-deep/50 absolute inset-0"
+                  className="absolute inset-0 bg-deep/50"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -96,21 +96,21 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
                   role="dialog"
                   aria-modal="true"
                   aria-label="Site menu"
-                  className="bg-bg absolute inset-y-0 right-0 flex w-full max-w-sm flex-col overflow-y-auto shadow-lg"
+                  className="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col overflow-y-auto bg-bg shadow-lg"
                   initial={reduce ? { opacity: 0 } : { x: '100%' }}
                   animate={reduce ? { opacity: 1 } : { x: 0 }}
                   exit={reduce ? { opacity: 0 } : { x: '100%' }}
                   transition={{ duration: reduce ? 0 : 0.45, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <div className="border-line flex h-(--header-h) items-center justify-between border-b px-5">
-                    <span className="text-eyebrow text-gold-ink font-bold uppercase">
+                  <div className="flex h-(--header-h) items-center justify-between border-b border-line px-5">
+                    <span className="text-eyebrow font-bold text-gold-ink uppercase">
                       Menu
                     </span>
                     <button
                       type="button"
                       onClick={close}
                       aria-label="Close menu"
-                      className="border-line-strong text-ink hover:border-brand hover:text-brand inline-flex size-11 items-center justify-center rounded-full border transition-colors"
+                      className="inline-flex size-11 items-center justify-center rounded-full border border-line-strong text-ink transition-colors hover:border-brand hover:text-brand"
                     >
                       <X aria-hidden className="size-5" />
                     </button>
@@ -120,13 +120,13 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
                       {mainNav.map((item) => {
                         const active = isActive(pathname, item.href)
                         return (
-                          <li key={item.href} className="border-line border-b">
+                          <li key={item.href} className="border-b border-line">
                             <Link
                               href={item.href}
                               onClick={() => setOpen(false)}
                               aria-current={active ? 'page' : undefined}
                               className={cn(
-                                'font-display flex min-h-16 items-center justify-between text-[1.75rem] leading-none',
+                                'flex min-h-16 items-center justify-between font-display text-[1.75rem] leading-none',
                                 active ? 'text-brand' : 'text-ink',
                               )}
                             >
@@ -134,7 +134,7 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
                               {active && (
                                 <span
                                   aria-hidden
-                                  className="bg-gold size-2 rounded-full"
+                                  className="size-2 rounded-full bg-gold"
                                 />
                               )}
                             </Link>
@@ -144,7 +144,7 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
                     </ul>
                   </nav>
                   <div className="px-5 pt-8">
-                    <p className="text-eyebrow text-gold-ink font-bold uppercase">
+                    <p className="text-eyebrow font-bold text-gold-ink uppercase">
                       Services
                     </p>
                     <ul className="mt-3 grid gap-0.5">
@@ -153,7 +153,7 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
                           <Link
                             href={`/services/${s.slug}`}
                             onClick={() => setOpen(false)}
-                            className="text-ink-soft hover:text-brand flex min-h-11 items-center text-[0.9375rem]"
+                            className="flex min-h-11 items-center text-[0.9375rem] text-ink-soft hover:text-brand"
                           >
                             {s.name}
                           </Link>
@@ -161,29 +161,29 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
                       ))}
                     </ul>
                   </div>
-                  <div className="border-line bg-surface-muted mt-auto grid gap-3 border-t px-5 py-6">
+                  <div className="mt-auto grid gap-3 border-t border-line bg-surface-muted px-5 py-6">
                     <Link
                       href="/contact"
                       onClick={() => setOpen(false)}
-                      className="bg-brand inline-flex min-h-12 items-center justify-center rounded-full px-6 font-semibold text-white"
+                      className="inline-flex min-h-12 items-center justify-center rounded-full bg-brand px-6 font-semibold text-white"
                     >
                       Request Services
                     </Link>
                     <a
                       href={primaryPhone.href}
-                      className="text-ink inline-flex min-h-11 items-center gap-3"
+                      className="inline-flex min-h-11 items-center gap-3 text-ink"
                     >
-                      <Phone aria-hidden className="text-gold-ink size-4" />
+                      <Phone aria-hidden className="size-4 text-gold-ink" />
                       {primaryPhone.label}
                     </a>
                     <a
                       href={`mailto:${primaryEmail}`}
-                      className="text-ink inline-flex min-h-11 items-center gap-3 break-all"
+                      className="inline-flex min-h-11 items-center gap-3 break-all text-ink"
                     >
-                      <Mail aria-hidden className="text-gold-ink size-4 shrink-0" />
+                      <Mail aria-hidden className="size-4 shrink-0 text-gold-ink" />
                       {primaryEmail}
                     </a>
-                    <p className="text-ink-soft text-sm">{site.hours.label}</p>
+                    <p className="text-sm text-ink-soft">{site.hours.label}</p>
                   </div>
                 </motion.div>
               </div>

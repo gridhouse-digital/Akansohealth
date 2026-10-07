@@ -19,7 +19,7 @@ export function CTASection({
   return (
     <section aria-labelledby="cta-heading" className="section-y">
       <div className="container-page">
-        <Reveal className="on-deep bg-deep relative isolate overflow-hidden rounded-xl px-6 py-14 sm:px-10 md:px-14 md:py-20 lg:px-20">
+        <Reveal className="on-deep relative isolate overflow-hidden rounded-xl bg-deep px-6 py-14 sm:px-10 md:px-14 md:py-20 lg:px-20">
           <Image
             src="/brand/akansoh-mark.png"
             alt=""
@@ -31,10 +31,10 @@ export function CTASection({
           <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
               <Eyebrow tone="light">Get in touch</Eyebrow>
-              <h2 id="cta-heading" className="text-h2 text-on-deep mt-5">
+              <h2 id="cta-heading" className="mt-5 text-h2 text-on-deep">
                 {title}
               </h2>
-              <p className="text-lead text-on-deep-muted mt-6 max-w-xl">{description}</p>
+              <p className="mt-6 max-w-xl text-lead text-on-deep-muted">{description}</p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <Button href="/contact" variant="light" size="lg" arrow>
                   {cta}
@@ -49,9 +49,9 @@ export function CTASection({
                 <li key={p.e164} className="bg-deep">
                   <a
                     href={p.href}
-                    className="text-on-deep flex min-h-16 items-center gap-4 px-6 transition-colors hover:bg-white/5"
+                    className="flex min-h-16 items-center gap-4 px-6 text-on-deep transition-colors hover:bg-white/5"
                   >
-                    <Phone aria-hidden className="text-gold size-4" />
+                    <Phone aria-hidden className="size-4 text-gold" />
                     <span className="text-lg">{p.label}</span>
                   </a>
                 </li>
@@ -59,13 +59,15 @@ export function CTASection({
               <li className="bg-deep">
                 <a
                   href={`mailto:${primaryEmail}`}
-                  className="text-on-deep flex min-h-16 items-center gap-4 px-6 transition-colors hover:bg-white/5"
+                  className="flex min-h-16 items-center gap-4 px-6 text-on-deep transition-colors hover:bg-white/5"
                 >
-                  <Mail aria-hidden className="text-gold size-4 shrink-0" />
-                  <span className="break-all">{primaryEmail}</span>
+                  <Mail aria-hidden className="size-4 shrink-0 text-gold" />
+                  <span className="min-w-0 text-[0.9375rem] [overflow-wrap:anywhere] sm:text-base">
+                    {primaryEmail}
+                  </span>
                 </a>
               </li>
-              <li className="bg-deep text-on-deep-muted px-6 py-4 text-sm">
+              <li className="bg-deep px-6 py-4 text-sm text-on-deep-muted">
                 {site.hours.label}
               </li>
             </ul>

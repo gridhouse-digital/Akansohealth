@@ -42,7 +42,7 @@ export function ImagePlaceholder({
         className={cn(
           'flex size-24 items-center justify-center rounded-full border',
           deep
-            ? 'border-gold/40 text-gold bg-white/5'
+            ? 'border-gold/40 bg-white/5 text-gold'
             : 'border-gold/40 bg-surface/70 text-brand',
         )}
       >

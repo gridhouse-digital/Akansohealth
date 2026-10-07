@@ -32,13 +32,13 @@ export default function ContactPage() {
       <section aria-label="Contact details and form" className="section-y">
         <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-12">
           <Reveal className="lg:col-span-5">
-            <div className="on-deep bg-deep text-on-deep rounded-xl p-8 sm:p-10">
+            <div className="on-deep rounded-xl bg-deep p-8 text-on-deep sm:p-10">
               <h2 className="text-h3 text-on-deep">Contact Akansoh Health Services</h2>
               <ul className="mt-8 grid gap-7">
                 <li className="flex gap-4">
-                  <Phone aria-hidden className="text-gold mt-1 size-5 shrink-0" />
+                  <Phone aria-hidden className="mt-1 size-5 shrink-0 text-gold" />
                   <div>
-                    <p className="text-eyebrow text-gold font-bold uppercase">Phone</p>
+                    <p className="text-eyebrow font-bold text-gold uppercase">Phone</p>
                     <div className="mt-2 grid gap-1">
                       {site.phones.map((p) => (
                         <a
@@ -53,9 +53,9 @@ export default function ContactPage() {
                   </div>
                 </li>
                 <li className="flex gap-4">
-                  <Mail aria-hidden className="text-gold mt-1 size-5 shrink-0" />
+                  <Mail aria-hidden className="mt-1 size-5 shrink-0 text-gold" />
                   <div className="min-w-0">
-                    <p className="text-eyebrow text-gold font-bold uppercase">Email</p>
+                    <p className="text-eyebrow font-bold text-gold uppercase">Email</p>
                     <div className="mt-2 grid gap-1">
                       {site.emails.map((e) => (
                         <a
@@ -70,9 +70,9 @@ export default function ContactPage() {
                   </div>
                 </li>
                 <li className="flex gap-4">
-                  <MapPin aria-hidden className="text-gold mt-1 size-5 shrink-0" />
+                  <MapPin aria-hidden className="mt-1 size-5 shrink-0 text-gold" />
                   <div>
-                    <p className="text-eyebrow text-gold font-bold uppercase">Address</p>
+                    <p className="text-eyebrow font-bold text-gold uppercase">Address</p>
                     <address className="mt-2 not-italic">
                       {site.address.street}
                       <br />
@@ -82,7 +82,7 @@ export default function ContactPage() {
                       href={mapsUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-gold mt-2 inline-flex min-h-9 items-center gap-1.5 text-sm font-semibold hover:underline"
+                      className="mt-2 inline-flex min-h-9 items-center gap-1.5 text-sm font-semibold text-gold hover:underline"
                     >
                       Get directions <ExternalLink aria-hidden className="size-3.5" />
                       <span className="sr-only">(opens Google Maps in a new tab)</span>
@@ -90,18 +90,18 @@ export default function ContactPage() {
                   </div>
                 </li>
                 <li className="flex gap-4">
-                  <Clock aria-hidden className="text-gold mt-1 size-5 shrink-0" />
+                  <Clock aria-hidden className="mt-1 size-5 shrink-0 text-gold" />
                   <div>
-                    <p className="text-eyebrow text-gold font-bold uppercase">Hours</p>
+                    <p className="text-eyebrow font-bold text-gold uppercase">Hours</p>
                     <p className="mt-2">{site.hours.label}</p>
                   </div>
                 </li>
               </ul>
             </div>
             {site.jotformUrl && (
-              <div className="border-line bg-surface mt-5 rounded-xl border p-7">
-                <p className="text-ink font-semibold">Prefer our full intake form?</p>
-                <p className="text-ink-soft mt-2 text-[0.9375rem]">
+              <div className="mt-5 rounded-xl border border-line bg-surface p-7">
+                <p className="font-semibold text-ink">Prefer our full intake form?</p>
+                <p className="mt-2 text-[0.9375rem] text-ink-soft">
                   Share more detail about the support you’re looking for using our secure
                   online form.
                 </p>
@@ -109,7 +109,7 @@ export default function ContactPage() {
                   href={site.jotformUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-brand mt-4 inline-flex min-h-11 items-center gap-2 font-semibold hover:underline"
+                  className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-brand hover:underline"
                 >
                   Open the intake form <ExternalLink aria-hidden className="size-4" />
                   <span className="sr-only">(opens in a new tab)</span>
@@ -119,10 +119,10 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.08} className="lg:col-span-7">
-            <div className="border-line bg-surface rounded-xl border p-7 shadow-sm sm:p-10">
+            <div className="rounded-xl border border-line bg-surface p-7 shadow-sm sm:p-10">
               <Eyebrow>Send us a message</Eyebrow>
-              <h2 className="text-h3 text-ink mt-4">We’re glad you’re reaching out.</h2>
-              <p className="text-ink-soft mt-3">
+              <h2 className="mt-4 text-h3 text-ink">We’re glad you’re reaching out.</h2>
+              <p className="mt-3 text-ink-soft">
                 Contact us with questions, service requests or anything else on your mind.
                 Fields are required unless marked optional.
               </p>
@@ -134,7 +134,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section aria-labelledby="visit-heading" className="border-line bg-bg-alt border-t">
+      <section
+        aria-labelledby="visit-heading"
+        className="border-t border-line bg-surface"
+      >
         <div className="container-page grid gap-6 py-14 md:grid-cols-12 md:items-center">
           <h2 id="visit-heading" className="text-h3 text-ink md:col-span-5">
             Based in Doylestown, Pennsylvania
@@ -145,7 +148,7 @@ export default function ContactPage() {
               href={mapsUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-brand inline-flex min-h-11 items-center gap-2 font-semibold hover:underline"
+              className="inline-flex min-h-11 items-center gap-2 font-semibold text-brand hover:underline"
             >
               Map <ExternalLink aria-hidden className="size-4" />
               <span className="sr-only">(opens Google Maps in a new tab)</span>

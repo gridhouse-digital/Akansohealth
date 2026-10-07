@@ -12,8 +12,8 @@ export default function NotFound() {
     <section className="section-y">
       <div className="container-page max-w-3xl">
         <Eyebrow>404</Eyebrow>
-        <h1 className="text-h1 text-ink mt-6">We couldn’t find that page.</h1>
-        <p className="text-lead text-ink-soft mt-6">
+        <h1 className="mt-6 text-h1 text-ink">We couldn’t find that page.</h1>
+        <p className="mt-6 text-lead text-ink-soft">
           The page may have moved. Let’s get you back to something helpful.
         </p>
         <div className="mt-10 flex flex-wrap gap-3">

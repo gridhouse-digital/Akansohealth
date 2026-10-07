@@ -4,12 +4,12 @@ Source: https://www.akansohhealthservices.com/ (fetched Oct 7, 2026). Static HTM
 
 ## Pages / URLs
 
-| Live URL | Title | New route |
-| --- | --- | --- |
-| `/` and `/index.html` | Akansoh Health Services - Delivering Multifaceted Healthcare Solutions | `/` |
-| `/about.html` | About Us - Akansoh Health Services | `/about` |
-| `/services.html` | Services - Akansoh Health Services | `/services` |
-| `/contact.html` | Contact - Akansoh Health Services | `/contact` |
+| Live URL              | Title                                                                  | New route   |
+| --------------------- | ---------------------------------------------------------------------- | ----------- |
+| `/` and `/index.html` | Akansoh Health Services - Delivering Multifaceted Healthcare Solutions | `/`         |
+| `/about.html`         | About Us - Akansoh Health Services                                     | `/about`    |
+| `/services.html`      | Services - Akansoh Health Services                                     | `/services` |
+| `/contact.html`       | Contact - Akansoh Health Services                                      | `/contact`  |
 
 - No service detail pages, no blog, no `robots.txt`, no `sitemap.xml`.
 - No meta descriptions, no Open Graph tags, no structured data on any page.

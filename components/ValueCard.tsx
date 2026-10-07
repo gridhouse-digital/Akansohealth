@@ -33,7 +33,7 @@ export function ValueCard({
       />
       <Heading
         className={cn(
-          'font-display mt-6 text-[1.5rem] leading-tight',
+          'mt-6 font-display text-[1.5rem] leading-tight',
           light ? 'text-on-deep' : 'text-ink',
         )}
       >

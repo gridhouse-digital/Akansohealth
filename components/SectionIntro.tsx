@@ -41,7 +41,7 @@ export function SectionIntro({
         <Eyebrow tone={tone} className={cn(layout === 'center' && 'justify-center')}>
           {eyebrow}
         </Eyebrow>
-        <h2 id={id} className={cn('text-h2 mt-5', light ? 'text-on-deep' : 'text-ink')}>
+        <h2 id={id} className={cn('mt-5 text-h2', light ? 'text-on-deep' : 'text-ink')}>
           {title}
         </h2>
         {!split && description && (
