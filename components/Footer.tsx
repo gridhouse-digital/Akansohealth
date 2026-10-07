@@ -11,7 +11,7 @@ export function Footer() {
   return (
     <footer className="border-t border-line bg-bg-alt">
       <div className="container-page grid gap-12 py-16 md:grid-cols-12 md:gap-8 md:py-20">
-        <div className="md:col-span-12 lg:col-span-4">
+        <div className="md:col-span-12 lg:col-span-3">
           <Link
             href="/"
             aria-label="Akansoh Health Services — home"
@@ -63,7 +63,7 @@ export function Footer() {
           </ul>
         </nav>
 
-        <div className="md:col-span-5 lg:col-span-3">
+        <div className="md:col-span-5 lg:col-span-4">
           <h2 className="font-sans text-eyebrow font-bold text-gold-ink uppercase">
             Contact
           </h2>
@@ -93,7 +93,11 @@ export function Footer() {
               <Mail aria-hidden className="mt-1 size-4 shrink-0 text-brand" />
               <span className="grid min-w-0">
                 {site.emails.map((e) => (
-                  <a key={e} href={`mailto:${e}`} className="break-all hover:text-brand">
+                  <a
+                    key={e}
+                    href={`mailto:${e}`}
+                    className="[overflow-wrap:anywhere] hover:text-brand"
+                  >
                     {e}
                   </a>
                 ))}

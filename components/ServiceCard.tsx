@@ -30,7 +30,7 @@ export function ServiceCard({
           : variant === 'tint'
             ? 'border-line-strong/60 bg-bg-alt hover:border-line-strong hover:shadow-md'
             : 'border-line bg-surface hover:border-line-strong hover:shadow-md',
-        variant === 'feature' && 'md:flex-row',
+        variant === 'feature' && 'md:flex-row lg:flex-col xl:flex-row',
         className,
       )}
     >
@@ -39,7 +39,7 @@ export function ServiceCard({
           className={cn(
             'relative overflow-hidden bg-bg-alt',
             variant === 'feature'
-              ? 'aspect-[4/3] md:aspect-auto md:w-[52%]'
+              ? 'aspect-[4/3] md:aspect-auto md:w-[52%] lg:aspect-[16/9] lg:w-full xl:aspect-auto xl:w-[46%]'
               : 'aspect-[16/10]',
           )}
         >

@@ -161,7 +161,7 @@ export default function HomePage() {
             eyebrow="Our mission"
             title={
               <>
-                Care that respects the person{' '}
+                {'Care that respects the person '}
                 <em className="text-brand">behind the need.</em>
               </>
             }
@@ -297,7 +297,7 @@ export default function HomePage() {
             eyebrow="About Akansoh"
             title={
               <>
-                Compassion and healthcare,{' '}
+                {'Compassion and healthcare, '}
                 <em className="text-brand">working together.</em>
               </>
             }

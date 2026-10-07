@@ -53,7 +53,11 @@ export function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.05} y={24} className="relative lg:col-span-6 lg:pl-6">
+        <Reveal
+          delay={0.05}
+          y={24}
+          className="relative lg:col-span-6 lg:self-center lg:pl-6"
+        >
           <div className="relative mx-auto max-w-xl lg:max-w-none">
             <div className="relative ml-auto aspect-[4/5] w-[82%] overflow-hidden arch bg-bg-alt shadow-lg sm:w-[76%]">
               <Image

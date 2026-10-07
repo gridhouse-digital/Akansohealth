@@ -74,7 +74,7 @@ export default function AboutPage() {
           <Reveal className="lg:col-span-5">
             <Eyebrow>What we’re about</Eyebrow>
             <h2 id="story-heading" className="mt-5 text-h2 text-ink">
-              Support that enhances quality of life — and{' '}
+              {'Support that enhances quality of life — and '}
               <em className="text-brand">fosters independence.</em>
             </h2>
           </Reveal>
