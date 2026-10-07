@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Clock, ExternalLink, Mail, MapPin, Phone } from 'lucide-react'
 import { ContactForm } from '@/components/ContactForm'
 import { Eyebrow } from '@/components/Eyebrow'
@@ -111,6 +112,12 @@ export default function ContactPage() {
                 </a>
               </div>
             )}
+            <p className="mt-5 px-1 text-[0.9375rem] text-ink-soft">
+              Interested in working with us?{' '}
+              <Link href="/careers" className="font-semibold text-brand hover:underline">
+                Join our team
+              </Link>
+            </p>
           </Reveal>
 
           <Reveal delay={0.08} className="lg:col-span-7">

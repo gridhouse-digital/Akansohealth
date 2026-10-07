@@ -41,7 +41,7 @@ export function Header() {
                     href={item.href}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'relative inline-flex min-h-11 items-center px-4 text-[0.9375rem] font-medium transition-colors',
+                      'relative inline-flex min-h-11 items-center px-3 text-[0.9375rem] font-medium transition-colors xl:px-4',
                       active ? 'text-brand' : 'text-ink-soft hover:text-ink',
                     )}
                   >
@@ -49,7 +49,7 @@ export function Header() {
                     <span
                       aria-hidden
                       className={cn(
-                        'absolute inset-x-4 bottom-1.5 h-px origin-left bg-gold transition-transform duration-500 ease-expo',
+                        'absolute inset-x-3 bottom-1.5 h-px origin-left bg-gold transition-transform duration-500 ease-expo xl:inset-x-4',
                         active ? 'scale-x-100' : 'scale-x-0',
                       )}
                     />
