@@ -12,7 +12,7 @@ export const site = {
     { label: '(347) 822-7070', href: 'tel:+13478227070', e164: '+13478227070' },
     { label: '(267) 370-1956', href: 'tel:+12673701956', e164: '+12673701956' },
   ],
-  email: 'info@akansohservices.com',
+  email: 'info@akansohealth.com',
   address: {
     street: '4615 Louise Saint Claire Dr',
     city: 'Doylestown',
@@ -28,6 +28,7 @@ export const site = {
     closes: '20:00',
   },
   jotformUrl: process.env.NEXT_PUBLIC_JOTFORM_URL || '',
+  jotformCareersUrl: process.env.NEXT_PUBLIC_JOTFORM_CAREERS_URL || '',
 } as const
 
 export const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`
@@ -41,5 +42,6 @@ export const mainNav = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
+  { label: 'Careers', href: '/careers' },
   { label: 'Contact', href: '/contact' },
 ] as const
