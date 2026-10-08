@@ -43,7 +43,11 @@ const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={`${newsreader.variable} ${manrope.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${newsreader.variable} ${manrope.variable}`}
+    >
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
