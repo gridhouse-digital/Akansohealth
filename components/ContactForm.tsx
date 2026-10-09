@@ -14,6 +14,7 @@ import { useForm, type FieldError } from 'react-hook-form'
 import {
   contactReasons,
   contactSchema,
+  reasonForService,
   reasonLabel,
   type ContactInput,
 } from '@/lib/contact'
@@ -119,9 +120,8 @@ export function ContactForm({ configured }: { configured: boolean }) {
 
   useEffect(() => {
     const service = new URLSearchParams(window.location.search).get('service')
-    if (service && contactReasons.some((r) => r.value === service)) {
-      setValue('reason', service)
-    }
+    const reason = service ? reasonForService(service) : undefined
+    if (reason) setValue('reason', reason)
   }, [setValue])
 
   useEffect(() => {

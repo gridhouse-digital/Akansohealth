@@ -1,12 +1,23 @@
 import { z } from 'zod'
-import { services } from './services'
-
 export const contactReasons = [
-  { value: 'request-services', label: 'Request services' },
-  ...services.map((s) => ({ value: s.slug, label: `Question about ${s.name}` })),
-  { value: 'general', label: 'General question' },
-  { value: 'other', label: 'Something else' },
+  { value: 'community-participation-support', label: 'Community Participation Support' },
+  { value: 'homemaker-chore', label: 'Homemaker / Chore / Companion Services' },
+  { value: 'referral', label: 'Referral' },
+  { value: 'request-services', label: 'Request Services' },
+  { value: 'respite-care', label: 'Respite Care' },
+  { value: 'shift-nursing', label: 'Shift / Enhanced Nursing' },
+  { value: 'other', label: 'Something Else' },
+  { value: 'transportation-services', label: 'Transportation Services' },
 ] as const
+
+const serviceAliases: Record<string, string> = {
+  'companion-services': 'homemaker-chore',
+}
+
+export const reasonForService = (slug: string) => {
+  const value = serviceAliases[slug] ?? slug
+  return contactReasons.some((r) => r.value === value) ? value : undefined
+}
 
 const reasonValues = contactReasons.map((r) => r.value) as [string, ...string[]]
 

@@ -26,7 +26,7 @@ export default function ContactPage() {
             Let’s talk about <em className="text-brand">the support you need.</em>
           </>
         }
-        description="Whether you have a question, want to request services, or simply aren’t sure where to start — we’re here to help. Reach out in the way that’s easiest for you."
+        description="Whether you have a question, have a referral, want to request services, or simply aren’t sure where to start — we’re here to help. Reach out in the way that’s easiest for you."
         breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Contact' }]}
       />
 
