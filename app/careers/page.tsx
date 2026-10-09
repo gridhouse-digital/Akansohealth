@@ -60,7 +60,7 @@ export default function CareersPage() {
             Join a team that puts <em className="text-brand">people first.</em>
           </>
         }
-        description="At Akansoh Health Services, we support individuals with intellectual and developmental disabilities to live independently and with dignity. If you care about making a real difference in someone’s day, we’d love to hear from you."
+        description="At Akansoh Health Services, we support individuals with intellectual and developmental disabilities to live independently and with dignity. If you’re passionate about making a difference in people’s lives, we’d love to hear from you."
         breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Careers' }]}
         aside={
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-bg-alt shadow-md">
