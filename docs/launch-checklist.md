@@ -11,7 +11,7 @@ Current build:
 - All canonical URLs, sitemap, robots, OpenGraph and JSON-LD use `NEXT_PUBLIC_SITE_URL` (default `https://akansohealth.com`; the owner has said the site will move to `akansohealth.com`).
 - The only public email shown is `info@akansohealth.com` (`lib/site.ts → site.email`), per the owner's instruction. Confirm the mailbox exists and the domain's MX records are set up.
 - `akansoh937@gmail.com` has been **removed from every rendered page and from structured data**.
-- Contact-form delivery is configured only through env vars (`CONTACT_FORM_ENDPOINT`, `CONTACT_FORM_TOKEN`); no recipient address is in code. The old FormSubmit form sent to `divinetechpro7@gmail.com` (likely the previous developer) — do not reuse it.
+- Contact-form delivery uses Resend (`RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, optional `CONTACT_TO_EMAIL`). The recipient defaults to `info@akansohealth.com`, which is already public on the site. The old FormSubmit form sent to `divinetechpro7@gmail.com` (likely the previous developer) — do not reuse it. The form does not collect a free-text message or a diagnosis.
 
 Please confirm:
 
@@ -42,7 +42,9 @@ Remove any quote that can't be confirmed.
 
 ## Other pre-launch items
 
-- [ ] Set `NEXT_PUBLIC_SITE_URL` and `CONTACT_FORM_ENDPOINT` in Vercel; send a test submission (with and without JavaScript).
+- [ ] Set `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, and `CONTACT_FROM_EMAIL` in Vercel Production and Preview. Confirm `CONTACT_TO_EMAIL` (or leave it unset to use `info@akansohealth.com`). Send a test submission with and without JavaScript.
+- [ ] In Resend, verify the sending domain and leave open/click tracking off.
+- [ ] Optional: set `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` together (both, or neither) and redeploy.
 - [ ] Optional: `NEXT_PUBLIC_JOTFORM_URL`, `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
 - [ ] Replace flagged photos (see `docs/image-brief.md`).
 - [ ] Confirm service area, licenses and social accounts if any should be listed (none are shown today).

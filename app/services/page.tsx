@@ -110,9 +110,7 @@ export default function ServicesPage() {
                     <Button href={`/services/${s.slug}`} arrow>
                       Learn more<span className="sr-only"> about {s.name}</span>
                     </Button>
-                    <TextLink href={`/contact?service=${s.slug}`}>
-                      Ask about this service
-                    </TextLink>
+                    <TextLink href="/contact">Ask about this service</TextLink>
                   </div>
                 </Reveal>
               </div>
@@ -123,7 +121,7 @@ export default function ServicesPage() {
 
       <CTASection
         title="Not sure which service fits?"
-        description="That’s completely okay. Some people benefit from more than one service, and needs can change over time. Tell us a little about your situation and we’ll talk it through together."
+        description="That’s completely okay. Some people benefit from more than one service, and needs can change over time. Call us and we’ll talk it through together."
         cta="Talk with our team"
       />
     </>

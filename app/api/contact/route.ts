@@ -1,51 +1,36 @@
-import { z } from 'zod'
-import { contactSchema, reasonLabel, type ContactInput } from '@/lib/contact'
-import { site, siteUrl } from '@/lib/site'
+import { deliverContact } from '@/lib/contact-delivery'
+import { handleContact, type ContactFailure } from '@/lib/contact-handler'
+import { clientIp, contactRateLimit } from '@/lib/rate-limit'
+import { verifyTurnstile } from '@/lib/turnstile'
 
-type Result = 'ok' | 'invalid' | 'not_configured' | 'upstream'
-
-const statusFor: Record<Exclude<Result, 'ok'>, number> = {
-  invalid: 422,
-  not_configured: 503,
-  upstream: 502,
-}
-
-async function deliver(data: ContactInput): Promise<Result> {
-  const endpoint = process.env.CONTACT_FORM_ENDPOINT
-  if (!endpoint) return 'not_configured'
-
-  const { company, ...fields } = data
-  if (company) return 'ok'
-
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  }
-  const token = process.env.CONTACT_FORM_TOKEN
-  if (token) headers.Authorization = `Bearer ${token}`
-
-  try {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        ...fields,
-        reason: reasonLabel(fields.reason),
-        _subject: `New inquiry — ${site.name}: ${reasonLabel(fields.reason)}`,
-        _replyto: fields.email,
-        _template: 'table',
-        source: `${siteUrl}/contact`,
-      }),
-      signal: AbortSignal.timeout(10_000),
-    })
-    return res.ok ? 'ok' : 'upstream'
-  } catch {
-    return 'upstream'
+function statusFor(error: Exclude<ContactFailure, 'invalid'>): number {
+  switch (error) {
+    case 'not_configured':
+      return 503
+    case 'upstream':
+      return 502
+    case 'rate_limited':
+      return 429
+    case 'turnstile':
+      return 403
+    default: {
+      const neverError: never = error
+      return neverError
+    }
   }
 }
 
 function redirectTo(request: Request, path: string) {
   return Response.redirect(new URL(path, request.url), 303)
+}
+
+async function formRecord(request: Request) {
+  const form = await request.formData()
+  const raw: Record<string, unknown> = {}
+  for (const [key, value] of form.entries()) {
+    if (typeof value === 'string') raw[key] = value
+  }
+  return raw
 }
 
 export async function POST(request: Request) {
@@ -54,35 +39,52 @@ export async function POST(request: Request) {
     type.includes('application/x-www-form-urlencoded') ||
     type.includes('multipart/form-data')
 
+  let raw: Record<string, unknown>
   if (isForm) {
-    let raw: Record<string, FormDataEntryValue>
     try {
-      raw = { phone: '', company: '', ...Object.fromEntries(await request.formData()) }
+      raw = await formRecord(request)
     } catch {
       return redirectTo(request, '/contact/not-sent')
     }
-    const parsed = contactSchema.safeParse(raw)
-    if (!parsed.success) return redirectTo(request, '/contact/not-sent')
-    const result = await deliver(parsed.data)
-    return redirectTo(request, result === 'ok' ? '/contact/sent' : '/contact/not-sent')
+  } else {
+    let body: unknown
+    try {
+      body = await request.json()
+    } catch {
+      return Response.json({ ok: false, error: 'invalid_json' }, { status: 400 })
+    }
+    if (!body || typeof body !== 'object' || Array.isArray(body)) {
+      return Response.json({ ok: false, error: 'invalid_json' }, { status: 400 })
+    }
+    raw = body as Record<string, unknown>
   }
 
-  let body: unknown
-  try {
-    body = await request.json()
-  } catch {
-    return Response.json({ ok: false, error: 'invalid_json' }, { status: 400 })
+  const outcome = await handleContact({
+    raw,
+    ip: clientIp(request),
+    submissionId: crypto.randomUUID(),
+    limit: contactRateLimit,
+    verify: (token, remoteIp) => verifyTurnstile({ token, remoteIp }),
+    deliver: deliverContact,
+  })
+
+  if (isForm) {
+    return redirectTo(request, outcome.ok ? '/contact/sent' : '/contact/not-sent')
   }
 
-  const parsed = contactSchema.safeParse(body)
-  if (!parsed.success) {
+  if (outcome.ok) return Response.json({ ok: true })
+
+  if (outcome.error === 'invalid') {
     return Response.json(
-      { ok: false, error: 'invalid', issues: z.flattenError(parsed.error).fieldErrors },
-      { status: statusFor.invalid },
+      { ok: false, error: 'invalid', issues: outcome.issues },
+      { status: 422 },
     )
   }
 
-  const result = await deliver(parsed.data)
-  if (result === 'ok') return Response.json({ ok: true })
-  return Response.json({ ok: false, error: result }, { status: statusFor[result] })
+  const headers = new Headers()
+  if (outcome.error === 'rate_limited') headers.set('Retry-After', '600')
+  return Response.json(
+    { ok: false, error: outcome.error },
+    { status: statusFor(outcome.error), headers },
+  )
 }

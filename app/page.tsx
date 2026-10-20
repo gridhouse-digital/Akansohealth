@@ -80,7 +80,7 @@ const reasons = [
 const steps = [
   {
     title: 'Reach out',
-    text: 'Call, email or send us a message. Tell us a little about yourself or the person you’re looking for support for.',
+    text: 'Call, email, or request a callback. We’ll phone you — please don’t include medical details in the form.',
   },
   {
     title: 'Talk it through',

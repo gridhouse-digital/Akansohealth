@@ -64,26 +64,26 @@ Fluid scale (`@theme`): `text-display`, `text-h1`, `text-h2`, `text-h3`, `text-h
 
 ## 4. Components (`components/`)
 
-| Component                              | Notes                                                               |
-| -------------------------------------- | ------------------------------------------------------------------- |
-| `UtilityBar`                           | Deep strip: location + hours (lg+), phone, email                    |
-| `Header`                               | Sticky, blurs on scroll, active underline, `aria-current`           |
-| `MobileNavigation`                     | Portal dialog, focus trap, Esc, scroll lock, 44px targets           |
-| `Hero`                                 | Homepage hero with arch image, inset, floating card                 |
-| `PageHero`                             | Breadcrumbs, eyebrow, h1, optional aside                            |
-| `SectionIntro`                         | Eyebrow + h2 + intro; split / stacked / center                      |
-| `Eyebrow`                              | Gold rule + uppercase label                                         |
-| `ServiceCard`                          | `feature`, `image`, `compact`, `tint`, `deep`; whole card clickable |
-| `ServiceGrid`                          | Bento layout of the six services                                    |
-| `FeatureSplit`                         | Image/media + copy, arch or rounded, reversible                     |
-| `ValueCard`                            | Icon + title + text, light/deep tones                               |
-| `TestimonialCard`                      | Featured (deep) or default; initials avatar (no stock faces)        |
-| `CTASection`                           | Deep panel with CTAs and real contact details                       |
-| `ImagePlaceholder`                     | Branded placeholder (`data-placeholder`) for missing photography    |
-| `Button` / `TextLink` / `SubmitButton` | Variants + arrow hover                                              |
-| `Reveal` / `MotionProvider`            | Scroll reveal, reduced-motion aware                                 |
-| `ContactForm`                          | RHF + Zod, accessible errors, mailto fallback                       |
-| `Footer`, `Logo`, `JsonLd`             |                                                                     |
+| Component                              | Notes                                                                 |
+| -------------------------------------- | --------------------------------------------------------------------- |
+| `UtilityBar`                           | Deep strip: location + hours (lg+), phone, email                      |
+| `Header`                               | Sticky, blurs on scroll, active underline, `aria-current`             |
+| `MobileNavigation`                     | Portal dialog, focus trap, Esc, scroll lock, 44px targets             |
+| `Hero`                                 | Homepage hero with arch image, inset, floating card                   |
+| `PageHero`                             | Breadcrumbs, eyebrow, h1, optional aside                              |
+| `SectionIntro`                         | Eyebrow + h2 + intro; split / stacked / center                        |
+| `Eyebrow`                              | Gold rule + uppercase label                                           |
+| `ServiceCard`                          | `feature`, `image`, `compact`, `tint`, `deep`; whole card clickable   |
+| `ServiceGrid`                          | Bento layout of the six services                                      |
+| `FeatureSplit`                         | Image/media + copy, arch or rounded, reversible                       |
+| `ValueCard`                            | Icon + title + text, light/deep tones                                 |
+| `TestimonialCard`                      | Featured (deep) or default; initials avatar (no stock faces)          |
+| `CTASection`                           | Deep panel with CTAs and real contact details                         |
+| `ImagePlaceholder`                     | Branded placeholder (`data-placeholder`) for missing photography      |
+| `Button` / `TextLink` / `SubmitButton` | Variants + arrow hover                                                |
+| `Reveal` / `MotionProvider`            | Scroll reveal, reduced-motion aware                                   |
+| `ContactForm`                          | RHF + Zod callback fields, Turnstile when configured, mailto fallback |
+| `Footer`, `Logo`, `JsonLd`             |                                                                       |
 
 Content lives in typed data: `lib/services.ts`, `lib/testimonials.ts`, `lib/site.ts`.
 
