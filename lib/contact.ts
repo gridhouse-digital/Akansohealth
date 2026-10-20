@@ -27,10 +27,17 @@ export const contactSchema = z.object({
   email: z.string().trim().email('Please enter a valid email address.').max(200),
   preferredTime: z.string().trim().max(120, 'Please keep this to a short time window.'),
   role: z.enum(roleValues, { message: 'Please tell us who you are.' }),
-  company: z.string(),
+  hp_leave_blank: z.string(),
 })
 
 export type ContactInput = z.infer<typeof contactSchema>
+
+export function honeypotTripped(data: ContactInput) {
+  const value = data.hp_leave_blank.trim().toLowerCase()
+  if (!value) return false
+  const otherValues = [data.name, data.phone, data.email, data.preferredTime, data.role]
+  return !otherValues.some((field) => field.trim().toLowerCase() === value)
+}
 
 export const roleLabel = (value: string) =>
   contactRoles.find((role) => role.value === value)?.label ?? value

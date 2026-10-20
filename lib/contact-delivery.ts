@@ -58,19 +58,9 @@ export async function deliverContact(
       text: contactEmailText(data, submissionId),
       submissionId,
     })
-    if (error) {
-      console.error('contact delivery failed', {
-        submissionId,
-        reason: 'resend_rejected',
-      })
-      return 'upstream'
-    }
+    if (error) return 'upstream'
     return 'ok'
   } catch {
-    console.error('contact delivery failed', {
-      submissionId,
-      reason: 'resend_exception',
-    })
     return 'upstream'
   }
 }

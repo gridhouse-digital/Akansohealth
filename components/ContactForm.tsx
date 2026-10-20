@@ -136,7 +136,7 @@ export function ContactForm() {
       email: '',
       preferredTime: '',
       role: '' as ContactRole,
-      company: '',
+      hp_leave_blank: '',
     },
     mode: 'onTouched',
   })
@@ -395,14 +395,15 @@ export function ContactForm() {
         </div>
       )}
 
-      <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor={`${uid}-company`}>Company</label>
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor={`${uid}-hp`}>Leave blank</label>
         <input
-          id={`${uid}-company`}
+          id={`${uid}-hp`}
           type="text"
           tabIndex={-1}
+          aria-hidden="true"
           autoComplete="off"
-          {...register('company')}
+          {...register('hp_leave_blank')}
         />
       </div>
       <div className="flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">

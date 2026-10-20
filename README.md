@@ -35,9 +35,9 @@ npm run dev
 | `NEXT_PUBLIC_JOTFORM_CAREERS_URL` | Optional | Jotform application form embedded (iframe) on `/careers`. If unset, a "coming soon" card with phone/email shows instead. Pages are prerendered, so redeploy after changing it |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID`   | Optional | Loads GA4 when set                                                                                                                                                            |
 
-The contact form collects a name, phone, email, optional callback window, and who the person is. It does not ask for a message or a service. Submissions are plain-text email (reply-to is the submitter) with no tracking links. Delivery failures are logged as `contact delivery failed` plus a submission id — no name, phone, or email in the log line.
+The contact form collects a name, phone, email, optional callback window, and who the person is. It does not ask for a message or a service. Submissions are plain-text email (reply-to is the submitter) with no tracking links. Each submission logs `contact form` with a submission id and a reason (`ok`, `invalid`, `not_configured`, `rate_limited`, `honeypot`, `turnstile`, `resend_failure`). The log line does not include a name, phone, or email.
 
-Spam controls: a `company` honeypot, Turnstile when both keys are set, and a best-effort in-memory limit of 8 requests per 10 minutes per IP. That limit lives in the serverless instance, so it resets on cold start and is not shared across instances. For a hard limit, use a Vercel Firewall rate-limit rule or a shared store such as Upstash Redis.
+Spam controls: an off-screen `hp_leave_blank` honeypot (ignored when empty or when it repeats another field, so browser autofill does not drop a real request), Turnstile when both keys are set, and a best-effort in-memory limit of 8 requests per 10 minutes per IP. That limit lives in the serverless instance, so it resets on cold start and is not shared across instances. For a hard limit, use a Vercel Firewall rate-limit rule or a shared store such as Upstash Redis.
 
 `/contact` stays static. `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is read in the browser bundle, so a new site key needs a redeploy. `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` are read when the form is submitted.
 

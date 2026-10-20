@@ -1,9 +1,12 @@
 import { deliverContact } from '@/lib/contact-delivery'
-import { handleContact, type ContactFailure } from '@/lib/contact-handler'
+import { handleContact, type ContactHandleResult } from '@/lib/contact-handler'
+import { contactLogReason, logContactOutcome } from '@/lib/contact-log'
 import { clientIp, contactRateLimit } from '@/lib/rate-limit'
 import { verifyTurnstile } from '@/lib/turnstile'
 
-function statusFor(error: Exclude<ContactFailure, 'invalid'>): number {
+function statusFor(
+  error: 'not_configured' | 'upstream' | 'rate_limited' | 'turnstile',
+): number {
   switch (error) {
     case 'not_configured':
       return 503
@@ -24,6 +27,10 @@ function redirectTo(request: Request, path: string) {
   return Response.redirect(new URL(path, request.url), 303)
 }
 
+function logOutcome(submissionId: string, outcome: ContactHandleResult) {
+  logContactOutcome(submissionId, contactLogReason(outcome))
+}
+
 async function formRecord(request: Request) {
   const form = await request.formData()
   const raw: Record<string, unknown> = {}
@@ -34,6 +41,7 @@ async function formRecord(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const submissionId = crypto.randomUUID()
   const type = request.headers.get('content-type') ?? ''
   const isForm =
     type.includes('application/x-www-form-urlencoded') ||
@@ -44,6 +52,7 @@ export async function POST(request: Request) {
     try {
       raw = await formRecord(request)
     } catch {
+      logContactOutcome(submissionId, 'invalid')
       return redirectTo(request, '/contact/not-sent')
     }
   } else {
@@ -51,9 +60,11 @@ export async function POST(request: Request) {
     try {
       body = await request.json()
     } catch {
+      logContactOutcome(submissionId, 'invalid')
       return Response.json({ ok: false, error: 'invalid_json' }, { status: 400 })
     }
     if (!body || typeof body !== 'object' || Array.isArray(body)) {
+      logContactOutcome(submissionId, 'invalid')
       return Response.json({ ok: false, error: 'invalid_json' }, { status: 400 })
     }
     raw = body as Record<string, unknown>
@@ -62,11 +73,12 @@ export async function POST(request: Request) {
   const outcome = await handleContact({
     raw,
     ip: clientIp(request),
-    submissionId: crypto.randomUUID(),
+    submissionId,
     limit: contactRateLimit,
     verify: (token, remoteIp) => verifyTurnstile({ token, remoteIp }),
     deliver: deliverContact,
   })
+  logOutcome(submissionId, outcome)
 
   if (isForm) {
     return redirectTo(request, outcome.ok ? '/contact/sent' : '/contact/not-sent')

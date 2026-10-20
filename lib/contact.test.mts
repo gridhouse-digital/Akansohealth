@@ -3,7 +3,8 @@ import { afterEach, describe, it } from 'node:test'
 import { contactEmailText } from './contact-email'
 import { deliverContact } from './contact-delivery'
 import { handleContact } from './contact-handler'
-import { contactSchema, oneLine, type ContactInput } from './contact'
+import { contactSchema, honeypotTripped, oneLine, type ContactInput } from './contact'
+import { contactLogReason, logContactOutcome } from './contact-log'
 import { clientIp, createRateLimiter } from './rate-limit'
 import { verifyTurnstile } from './turnstile'
 
@@ -13,7 +14,7 @@ const sample: ContactInput = {
   email: 'jordan.hale@example.com',
   preferredTime: 'Weekday mornings',
   role: 'individual',
-  company: '',
+  hp_leave_blank: '',
 }
 
 const envKeys = [
@@ -59,12 +60,25 @@ describe('contactSchema', () => {
     const parsed = contactSchema.safeParse({
       ...sample,
       preferredTime: '   ',
-      company: 'Acme Bots',
+      hp_leave_blank: 'Acme Bots',
     })
     assert.equal(parsed.success, true)
     if (!parsed.success) return
     assert.equal(parsed.data.preferredTime, '')
-    assert.equal(parsed.data.company, 'Acme Bots')
+    assert.equal(parsed.data.hp_leave_blank, 'Acme Bots')
+  })
+
+  it('ignores a honeypot that only repeats another answer', () => {
+    assert.equal(honeypotTripped({ ...sample, hp_leave_blank: '' }), false)
+    assert.equal(honeypotTripped({ ...sample, hp_leave_blank: 'Jordan Hale' }), false)
+    assert.equal(
+      honeypotTripped({ ...sample, hp_leave_blank: 'jordan.hale@example.com' }),
+      false,
+    )
+    assert.equal(
+      honeypotTripped({ ...sample, hp_leave_blank: 'https://spam.example' }),
+      true,
+    )
   })
 })
 
@@ -190,29 +204,52 @@ describe('delivery', () => {
     assert.equal(sent[0]?.subject, 'Callback request — Akanso Health')
     assert.match(sent[0]?.text ?? '', /jordan\.hale@example\.com/)
 
+    const failed = await deliverContact(sample, 'submission-4', async () => ({
+      error: true,
+    }))
+    assert.equal(failed, 'upstream')
+    assert.equal(contactLogReason({ ok: false, error: 'upstream' }), 'resend_failure')
+  })
+})
+
+describe('contact logs', () => {
+  it('logs a submission id and reason, and nothing personal', () => {
     const logged: unknown[][] = []
-    const original = console.error
-    console.error = (...args: unknown[]) => {
+    const originalInfo = console.info
+    const originalWarn = console.warn
+    console.info = (...args: unknown[]) => {
+      logged.push(args)
+    }
+    console.warn = (...args: unknown[]) => {
       logged.push(args)
     }
     try {
-      const failed = await deliverContact(sample, 'submission-4', async () => ({
-        error: true,
-      }))
-      assert.equal(failed, 'upstream')
+      logContactOutcome('submission-4', 'ok')
+      logContactOutcome('submission-4', 'resend_failure')
+      logContactOutcome('submission-5', 'honeypot')
+      logContactOutcome('submission-6', 'invalid')
     } finally {
-      console.error = original
+      console.info = originalInfo
+      console.warn = originalWarn
     }
     assert.deepEqual(logged, [
-      [
-        'contact delivery failed',
-        { submissionId: 'submission-4', reason: 'resend_rejected' },
-      ],
+      ['contact form', { submissionId: 'submission-4', reason: 'ok' }],
+      ['contact form', { submissionId: 'submission-4', reason: 'resend_failure' }],
+      ['contact form', { submissionId: 'submission-5', reason: 'honeypot' }],
+      ['contact form', { submissionId: 'submission-6', reason: 'invalid' }],
     ])
     const blob = JSON.stringify(logged)
     assert.equal(blob.includes(sample.email), false)
     assert.equal(blob.includes(sample.name), false)
     assert.equal(blob.includes(sample.phone), false)
+    assert.equal(contactLogReason({ ok: true, honeypot: false }), 'ok')
+    assert.equal(contactLogReason({ ok: true, honeypot: true }), 'honeypot')
+    assert.equal(contactLogReason({ ok: false, error: 'rate_limited' }), 'rate_limited')
+    assert.equal(
+      contactLogReason({ ok: false, error: 'not_configured' }),
+      'not_configured',
+    )
+    assert.equal(contactLogReason({ ok: false, error: 'turnstile' }), 'turnstile')
   })
 })
 
@@ -223,7 +260,7 @@ describe('handleContact', () => {
   it('accepts a honeypot fill without delivering', async () => {
     let delivered = false
     const result = await handleContact({
-      raw: { ...sample, company: 'not-empty' },
+      raw: { ...sample, hp_leave_blank: 'https://spam.example' },
       ip: '203.0.113.5',
       submissionId: 'submission-5',
       limit: passLimit,
@@ -233,8 +270,25 @@ describe('handleContact', () => {
         return 'ok'
       },
     })
-    assert.deepEqual(result, { ok: true })
+    assert.deepEqual(result, { ok: true, honeypot: true })
     assert.equal(delivered, false)
+  })
+
+  it('still delivers when the honeypot repeats the name', async () => {
+    let delivered = false
+    const result = await handleContact({
+      raw: { ...sample, hp_leave_blank: sample.name },
+      ip: '203.0.113.5',
+      submissionId: 'submission-7',
+      limit: passLimit,
+      verify: skipVerify,
+      deliver: async () => {
+        delivered = true
+        return 'ok'
+      },
+    })
+    assert.deepEqual(result, { ok: true, honeypot: false })
+    assert.equal(delivered, true)
   })
 
   it('stops when the rate limit says no', async () => {
