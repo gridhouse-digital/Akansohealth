@@ -65,7 +65,7 @@ export default async function ServicePage({ params }: PageProps<'/services/[slug
         }
       >
         <div className="flex flex-wrap gap-3">
-          <Button href={`/contact?service=${service.slug}`} size="lg" arrow>
+          <Button href="/contact" size="lg" arrow>
             Ask about this service
           </Button>
           <Button

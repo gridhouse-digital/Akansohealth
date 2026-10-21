@@ -10,13 +10,11 @@ import { fullAddress, mapsUrl, site } from '@/lib/site'
 export const metadata = pageMetadata({
   title: 'Contact Us',
   description:
-    'Contact Akansoh Health Services in Doylestown, PA. Call (347) 822-7070 or send us a message to talk about support for you or your loved one.',
+    'Contact Akansoh Health Services in Doylestown, PA. Call (347) 822-7070 or request a callback. Please don’t include medical details in the form.',
   path: '/contact',
 })
 
 export default function ContactPage() {
-  const configured = Boolean(process.env.CONTACT_FORM_ENDPOINT)
-
   return (
     <>
       <PageHero
@@ -122,14 +120,14 @@ export default function ContactPage() {
 
           <Reveal delay={0.08} className="lg:col-span-7">
             <div className="rounded-xl border border-line bg-surface p-7 shadow-sm sm:p-10">
-              <Eyebrow>Send us a message</Eyebrow>
+              <Eyebrow>Request a call</Eyebrow>
               <h2 className="mt-4 text-h3 text-ink">We’re glad you’re reaching out.</h2>
               <p className="mt-3 text-ink-soft">
-                Contact us with questions, service requests or anything else on your mind.
-                Fields are required unless marked optional.
+                Share how to reach you and we’ll call you back. Fields are required unless
+                marked optional.
               </p>
               <div className="relative mt-8">
-                <ContactForm configured={configured} />
+                <ContactForm />
               </div>
             </div>
           </Reveal>

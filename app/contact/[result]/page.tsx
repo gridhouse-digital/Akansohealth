@@ -6,14 +6,14 @@ import { primaryEmail, site } from '@/lib/site'
 
 const results = {
   sent: {
-    eyebrow: 'Message sent',
-    title: 'Thank you — your message is on its way.',
-    body: 'Our team will be in touch. If your question is time-sensitive, please call us.',
+    eyebrow: 'Request sent',
+    title: 'Thank you — we’ll call you back.',
+    body: 'If you need us sooner, please call. There’s no need to share medical details until we’re on the phone.',
   },
   'not-sent': {
-    eyebrow: 'Message not sent',
-    title: 'We couldn’t send your message.',
-    body: 'Something was missing or our form is temporarily unavailable. Please go back and check your details, or reach us directly by phone or email.',
+    eyebrow: 'Request not sent',
+    title: 'We couldn’t send your request.',
+    body: 'Something was missing, the security check didn’t pass, or the form is temporarily unavailable. Please go back and try again, or reach us by phone or email.',
   },
 } as const
 
