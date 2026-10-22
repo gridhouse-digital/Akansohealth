@@ -14,7 +14,7 @@ export type ContactDeliveryDetails = ContactEmailOptions
 export type ContactSendArgs = {
   apiKey: string
   from: string
-  to: string
+  to: string[]
   replyTo: string
   subject: string
   text: string
@@ -22,11 +22,27 @@ export type ContactSendArgs = {
   submissionId: string
 }
 
+const RECIPIENT_LIMIT = 50
+const emailLike = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/
+
+export function contactRecipients(raw: string | undefined) {
+  const seen = new Set<string>()
+  const recipients: string[] = []
+  for (const piece of (raw ?? '').split(/[,;]+/)) {
+    const address = piece.trim()
+    if (!address || !emailLike.test(address) || seen.has(address)) continue
+    seen.add(address)
+    recipients.push(address)
+    if (recipients.length === RECIPIENT_LIMIT) break
+  }
+  return recipients.length > 0 ? recipients : [DEFAULT_CONTACT_TO_EMAIL]
+}
+
 export function contactDeliveryConfig() {
   const apiKey = process.env.RESEND_API_KEY?.trim() ?? ''
   const from = process.env.CONTACT_FROM_EMAIL?.trim() ?? ''
-  const to = process.env.CONTACT_TO_EMAIL?.trim() || DEFAULT_CONTACT_TO_EMAIL
-  return { apiKey, from, to, configured: Boolean(apiKey && from && to) }
+  const to = contactRecipients(process.env.CONTACT_TO_EMAIL)
+  return { apiKey, from, to, configured: Boolean(apiKey && from && to.length) }
 }
 
 async function sendWithResend(args: ContactSendArgs): Promise<{ error: boolean }> {
@@ -34,7 +50,7 @@ async function sendWithResend(args: ContactSendArgs): Promise<{ error: boolean }
   const { error } = await resend.emails.send(
     {
       from: args.from,
-      to: [args.to],
+      to: args.to,
       replyTo: args.replyTo,
       subject: args.subject,
       text: args.text,
