@@ -7,7 +7,11 @@ import {
   contactSourcePage,
   formatReceivedAt,
 } from './contact-email'
-import { deliverContact, type ContactSendArgs } from './contact-delivery'
+import {
+  contactRecipients,
+  deliverContact,
+  type ContactSendArgs,
+} from './contact-delivery'
 import { handleContact } from './contact-handler'
 import { contactSchema, honeypotTripped, oneLine, type ContactInput } from './contact'
 import { contactLogReason, logContactOutcome } from './contact-log'
@@ -312,7 +316,7 @@ describe('delivery', () => {
       return { error: false }
     })
     assert.equal(ok, 'ok')
-    assert.equal(sent[0]?.to, 'info@akansohealth.com')
+    assert.deepEqual(sent[0]?.to, ['info@akansohealth.com'])
     assert.equal(sent[0]?.from, 'Akanso Health Website <website@send.akansohealth.com>')
     assert.equal(sent[0]?.replyTo, 'jordan.hale@example.com')
     assert.equal(sent[0]?.subject, 'New callback request: Jordan Hale')
@@ -325,6 +329,53 @@ describe('delivery', () => {
     }))
     assert.equal(failed, 'upstream')
     assert.equal(contactLogReason({ ok: false, error: 'upstream' }), 'resend_failure')
+  })
+})
+
+describe('contact recipients', () => {
+  it('keeps a single address', () => {
+    assert.deepEqual(contactRecipients('info@akansohealth.com'), [
+      'info@akansohealth.com',
+    ])
+  })
+
+  it('splits commas and semicolons', () => {
+    assert.deepEqual(
+      contactRecipients(
+        'intake@akansohealth.com, info@akansohealth.com; desk@akansohealth.com',
+      ),
+      ['intake@akansohealth.com', 'info@akansohealth.com', 'desk@akansohealth.com'],
+    )
+  })
+
+  it('trims spaces and drops empty pieces', () => {
+    assert.deepEqual(
+      contactRecipients('  intake@akansohealth.com , , info@akansohealth.com  '),
+      ['intake@akansohealth.com', 'info@akansohealth.com'],
+    )
+  })
+
+  it('ignores invalid addresses and duplicates', () => {
+    assert.deepEqual(
+      contactRecipients(
+        'not-an-email, info@akansohealth.com, info@akansohealth.com, also-bad',
+      ),
+      ['info@akansohealth.com'],
+    )
+  })
+
+  it('falls back when none remain', () => {
+    assert.deepEqual(contactRecipients(undefined), ['info@akansohealth.com'])
+    assert.deepEqual(contactRecipients(''), ['info@akansohealth.com'])
+    assert.deepEqual(contactRecipients(' , ; not-an-email '), ['info@akansohealth.com'])
+  })
+
+  it('caps the list at 50', () => {
+    const addresses = Array.from({ length: 51 }, (_, index) => `n${index}@example.com`)
+    const parsed = contactRecipients(addresses.join(';'))
+    assert.equal(parsed.length, 50)
+    assert.equal(parsed[0], 'n0@example.com')
+    assert.equal(parsed[49], 'n49@example.com')
   })
 })
 
