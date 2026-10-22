@@ -1,4 +1,4 @@
-import { deliverContact } from '@/lib/contact-delivery'
+import { deliverContactFromRequest } from '@/lib/contact-delivery'
 import { handleContact, type ContactHandleResult } from '@/lib/contact-handler'
 import { contactLogReason, logContactOutcome } from '@/lib/contact-log'
 import { clientIp, contactRateLimit } from '@/lib/rate-limit'
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     submissionId,
     limit: contactRateLimit,
     verify: (token, remoteIp) => verifyTurnstile({ token, remoteIp }),
-    deliver: deliverContact,
+    deliver: deliverContactFromRequest(request),
   })
   logOutcome(submissionId, outcome)
 

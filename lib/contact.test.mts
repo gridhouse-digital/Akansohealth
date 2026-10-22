@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict'
 import { afterEach, describe, it } from 'node:test'
-import { contactEmailText } from './contact-email'
-import { deliverContact } from './contact-delivery'
+import {
+  contactEmailHtml,
+  contactEmailSubject,
+  contactEmailText,
+  contactSourcePage,
+  formatReceivedAt,
+} from './contact-email'
+import { deliverContact, type ContactSendArgs } from './contact-delivery'
 import { handleContact } from './contact-handler'
 import { contactSchema, honeypotTripped, oneLine, type ContactInput } from './contact'
 import { contactLogReason, logContactOutcome } from './contact-log'
@@ -83,6 +89,8 @@ describe('contactSchema', () => {
 })
 
 describe('contact email', () => {
+  const receivedAt = new Date('2026-10-22T19:17:00.000Z')
+
   it('stays plain text and collapses injected line breaks', () => {
     const text = contactEmailText(
       {
@@ -91,13 +99,118 @@ describe('contact email', () => {
         preferredTime: '',
       },
       'submission-1',
+      { receivedAt },
     )
     assert.match(text, /Name: Jordan Bcc: evil@example.com/)
     assert.match(text, /Preferred time to call: Not provided/)
     assert.match(text, /I am a: Individual \/ family member/)
-    assert.equal(text.includes('http'), false)
+    assert.match(text, /Received: Thu, Oct 22, 2026, 3:17 PM EDT/)
+    assert.match(text, /Source: https:\/\/akansohealth\.com\/contact/)
+    assert.deepEqual(text.match(/https?:\/\/\S+/g), ['https://akansohealth.com/contact'])
     assert.equal(text.includes('<'), false)
+    assert.equal(text.includes('\nBcc:'), false)
     assert.equal(oneLine('a\r\nb'), 'a b')
+  })
+
+  it('puts the person in the subject and formats New York time', () => {
+    assert.equal(
+      contactEmailSubject('Jordan\r\nBcc: evil@example.com'),
+      'New callback request: Jordan Bcc: evil@example.com',
+    )
+    assert.equal(formatReceivedAt(receivedAt), 'Thu, Oct 22, 2026, 3:17 PM EDT')
+    assert.equal(
+      formatReceivedAt(new Date('2026-01-15T15:00:00.000Z')),
+      'Thu, Jan 15, 2026, 10:00 AM EST',
+    )
+  })
+
+  it('escapes user input and links phone and email', () => {
+    const html = contactEmailHtml(
+      {
+        ...sample,
+        name: `Jordan <script>alert(1)</script> & "Sam"`,
+        phone: '(215) 555-0198',
+        email: 'jordan.sample@example.com',
+        preferredTime: '',
+      },
+      'sub <id>',
+      {
+        receivedAt,
+        message: 'Line one\n<script>nope</script>',
+      },
+    )
+    assert.equal(html.includes('<script>'), false)
+    assert.match(
+      html,
+      /Jordan &lt;script&gt;alert\(1\)&lt;\/script&gt; &amp; &quot;Sam&quot;/,
+    )
+    assert.match(html, /Line one<br>&lt;script&gt;nope&lt;\/script&gt;/)
+    assert.match(html, /href="tel:\+12155550198"/)
+    assert.match(html, /href="mailto:jordan\.sample@example\.com"/)
+    assert.match(html, />Call back</)
+    assert.match(html, />Reply by email</)
+    assert.match(html, /color:#6b635a;[^"]*"[^>]*>\s*Not provided/)
+    assert.match(html, /https:\/\/akansohealth\.com\/brand\/akansoh-lockup\.png/)
+    assert.match(html, /Submission/)
+    assert.match(html, /sub &lt;id&gt;/)
+    assert.match(
+      html,
+      /The form asks people not to include medical or diagnosis details\./,
+    )
+  })
+
+  it('omits the message row when there is no message', () => {
+    const html = contactEmailHtml(
+      { ...sample, preferredTime: 'Weekday mornings' },
+      'submission-1',
+      { receivedAt },
+    )
+    assert.equal(html.includes('Message'), false)
+    assert.equal(html.includes('#6b635a'), false)
+    assert.match(html, /Weekday mornings/)
+  })
+
+  it('keeps the source on the contact page', () => {
+    assert.equal(
+      contactSourcePage('https://akanso-preview.vercel.app/api/contact'),
+      'https://akanso-preview.vercel.app/contact',
+    )
+    assert.equal(
+      contactSourcePage('https://akansohealth.com/api/contact?x=1'),
+      'https://akansohealth.com/contact',
+    )
+    assert.equal(
+      contactSourcePage('https://evil.example/api/contact'),
+      'https://akansohealth.com/contact',
+    )
+    const html = contactEmailHtml(sample, 'submission-1', {
+      receivedAt,
+      sourcePage: 'javascript:alert(1)',
+    })
+    assert.equal(html.includes('javascript:'), false)
+    assert.match(html, /href="https:\/\/akansohealth\.com\/contact"/)
+  })
+
+  it('does not turn a junk phone or email into a link', () => {
+    const html = contactEmailHtml(
+      {
+        ...sample,
+        name: '"><img src=x onerror=alert(1)>',
+        phone: 'javascript:alert(1)',
+        email: 'not-an-email',
+      },
+      'submission-1',
+      { receivedAt },
+    )
+    assert.deepEqual(html.match(/<img/g), ['<img'])
+    assert.match(
+      html,
+      /<img src="https:\/\/akansohealth\.com\/brand\/akansoh-lockup\.png"/,
+    )
+    assert.equal(html.includes('href="javascript:'), false)
+    assert.equal(html.includes('href="tel:'), false)
+    assert.equal(html.includes('mailto:'), false)
+    assert.match(html, /&quot;&gt;&lt;img src=x onerror=alert\(1\)&gt;/)
   })
 })
 
@@ -187,22 +300,25 @@ describe('delivery', () => {
     assert.equal(called, false)
   })
 
-  it('sends plain text to the default inbox and logs failures without personal data', async () => {
+  it('sends html and plain text to the default inbox and logs failures without personal data', async () => {
     process.env.RESEND_API_KEY = 're_test_key'
     process.env.CONTACT_FROM_EMAIL =
       'Akanso Health Website <website@send.akansohealth.com>'
     delete process.env.CONTACT_TO_EMAIL
 
-    const sent: Array<{ to: string; replyTo: string; text: string; subject: string }> = []
+    const sent: ContactSendArgs[] = []
     const ok = await deliverContact(sample, 'submission-3', async (args) => {
       sent.push(args)
       return { error: false }
     })
     assert.equal(ok, 'ok')
     assert.equal(sent[0]?.to, 'info@akansohealth.com')
+    assert.equal(sent[0]?.from, 'Akanso Health Website <website@send.akansohealth.com>')
     assert.equal(sent[0]?.replyTo, 'jordan.hale@example.com')
-    assert.equal(sent[0]?.subject, 'Callback request — Akanso Health')
+    assert.equal(sent[0]?.subject, 'New callback request: Jordan Hale')
     assert.match(sent[0]?.text ?? '', /jordan\.hale@example\.com/)
+    assert.match(sent[0]?.html ?? '', /mailto:jordan\.hale@example\.com/)
+    assert.match(sent[0]?.html ?? '', /Call back/)
 
     const failed = await deliverContact(sample, 'submission-4', async () => ({
       error: true,

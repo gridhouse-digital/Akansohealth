@@ -1,12 +1,15 @@
 import { Resend } from 'resend'
 import { oneLine, type ContactInput } from './contact'
 import {
-  CONTACT_EMAIL_SUBJECT,
+  buildContactEmail,
+  contactSourcePage,
   DEFAULT_CONTACT_TO_EMAIL,
-  contactEmailText,
+  type ContactEmailOptions,
 } from './contact-email'
 
 export type DeliveryResult = 'ok' | 'not_configured' | 'upstream'
+
+export type ContactDeliveryDetails = ContactEmailOptions
 
 export type ContactSendArgs = {
   apiKey: string
@@ -15,6 +18,7 @@ export type ContactSendArgs = {
   replyTo: string
   subject: string
   text: string
+  html: string
   submissionId: string
 }
 
@@ -34,19 +38,30 @@ async function sendWithResend(args: ContactSendArgs): Promise<{ error: boolean }
       replyTo: args.replyTo,
       subject: args.subject,
       text: args.text,
+      html: args.html,
     },
     { idempotencyKey: `contact/${args.submissionId}` },
   )
   return { error: Boolean(error) }
 }
 
+export function deliverContactFromRequest(request: Request) {
+  const sourcePage = contactSourcePage(request.url)
+  return (data: ContactInput, submissionId: string) =>
+    deliverContact(data, submissionId, sendWithResend, { sourcePage })
+}
+
 export async function deliverContact(
   data: ContactInput,
   submissionId: string,
   send: (args: ContactSendArgs) => Promise<{ error: boolean }> = sendWithResend,
+  details: ContactDeliveryDetails = {},
 ): Promise<DeliveryResult> {
   const config = contactDeliveryConfig()
   if (!config.configured) return 'not_configured'
+
+  const receivedAt = details.receivedAt ?? new Date()
+  const message = buildContactEmail(data, submissionId, { ...details, receivedAt })
 
   try {
     const { error } = await send({
@@ -54,8 +69,9 @@ export async function deliverContact(
       from: config.from,
       to: config.to,
       replyTo: oneLine(data.email),
-      subject: CONTACT_EMAIL_SUBJECT,
-      text: contactEmailText(data, submissionId),
+      subject: message.subject,
+      text: message.text,
+      html: message.html,
       submissionId,
     })
     if (error) return 'upstream'
